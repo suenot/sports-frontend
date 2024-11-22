@@ -1,0 +1,218 @@
+{
+  "landing": {
+    "hero": {
+      "title": "Sports Events Calendar",
+      "description": "A unified platform for tracking all sports events in Russia. Automatic synchronization with official sources, notifications, and personalization.",
+      "cta": "Open Calendar"
+    },
+    "problems": {
+      "title": "Problems We Solve",
+      "description": "The difficulty of tracking sports events due to scattered information and lack of a unified notification system.",
+      "features": {
+        "sync": {
+          "title": "Automatic Synchronization",
+          "description": "Instant updates from official sources"
+        },
+        "search": {
+          "title": "Smart Search",
+          "description": "Filter by sport type, location, dates, and other parameters"
+        },
+        "notifications": {
+          "title": "Notifications",
+          "description": "Personalized alerts about important events"
+        }
+      }
+    },
+    "advantages": {
+      "title": "Why Choose Us?",
+      "items": [
+        "Automatic data updates from Ministry of Sports PDF documents",
+        "Convenient filters and saved search queries",
+        "Telegram notifications about new and changed events",
+        "Light and dark theme support",
+        "Access to calendar via web interface and API"
+      ]
+    },
+    "tech": {
+      "title": "Technology Stack",
+      "frontend": {
+        "title": "Frontend",
+        "items": ["Next.js", "TypeScript", "Chakra UI"]
+      },
+      "backend": {
+        "title": "Backend",
+        "items": ["Python", "gRPC", "PostgreSQL"]
+      },
+      "integrations": {
+        "title": "Integrations",
+        "items": ["Telegram", "PDF Parser", "REST API"]
+      },
+      "devops": {
+        "title": "DevOps",
+        "items": ["Docker", "Kubernetes", "CI/CD"]
+      }
+    },
+    "cta": {
+      "title": "Ready to Start?",
+      "description": "Join our platform today",
+      "button": "Open Calendar"
+    }
+  },
+  "events": {
+    "title": "Sports Events",
+    "status": {
+      "draft": "DRAFT",
+      "published": "ACTIVE",
+      "cancelled": "CANCELLED",
+      "completed": "COMPLETED"
+    },
+    "stage": {
+      "status": {
+        "upcoming": "Upcoming",
+        "ongoing": "In Progress",
+        "completed": "Completed",
+        "cancelled": "Cancelled"
+      },
+      "type": {
+        "registration": "Registration",
+        "qualification": "Qualification",
+        "semifinal": "Semifinal",
+        "final": "Final",
+        "other": "Other"
+      },
+      "title": "Stage {{number}}: {{name}}"
+    },
+    "location": "Location",
+    "sportType": "Sport Type",
+    "stages": "Event Stages",
+    "noEvents": "No events available",
+    "sports": {
+      "Футбол": "Football",
+      "Баскетбол": "Basketball",
+      "Волейбол": "Volleyball",
+      "Теннис": "Tennis",
+      "Хоккей": "Hockey"
+    },
+    "disciplines": {
+      "Профессионалы": "Professional",
+      "Любители": "Amateur",
+      "Юниоры": "Junior",
+      "Ветераны": "Veteran"
+    },
+    "actions": {
+      "role": "Role: {{role}}",
+      "roleManager": "Manager",
+      "roleUser": "User",
+      "addEvent": "Add Event",
+      "editEvent": "Edit Event",
+      "deleteEvent": "Delete Event",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "form": {
+      "title": "Event Title",
+      "shortDescription": "Short Description",
+      "description": "Full Description",
+      "sportType": "Sport Type",
+      "discipline": "Discipline",
+      "eventType": "Event Type",
+      "ageGroup": "Age Group",
+      "gender": "Gender",
+      "location": {
+        "title": "Location",
+        "city": "City",
+        "venue": "Venue",
+        "address": "Address"
+      },
+      "stages": {
+        "title": "Stages",
+        "stageTitle": "Stage Title",
+        "type": "Stage Type",
+        "description": "Stage Description",
+        "dates": {
+          "title": "Event Dates",
+          "start": "Start Date",
+          "end": "End Date"
+        }
+      },
+      "types": {
+        "regional": "Regional",
+        "national": "National",
+        "international": "International"
+      },
+      "genders": {
+        "male": "Male",
+        "female": "Female",
+        "mixed": "Mixed"
+      },
+      "validation": {
+        "required": "Required field",
+        "minLength": "Minimum length: {{length}} characters",
+        "maxLength": "Maximum length: {{length}} characters",
+        "pattern": "Invalid format",
+        "minimum": "Minimum value: {{minimum}}",
+        "maximum": "Maximum value: {{maximum}}",
+        "minItems": "Minimum items: {{minItems}}",
+        "maxItems": "Maximum items: {{maxItems}}"
+      },
+      "tooltips": {
+        "title": "Enter event title (up to 100 characters)",
+        "shortDescription": "Brief event description for listing (up to 200 characters)",
+        "description": "Full event description including rules and requirements",
+        "sportType": "Select the main sport type",
+        "discipline": "Select discipline within the chosen sport",
+        "eventType": "Specify the event level",
+        "ageGroup": "Select participant age group",
+        "gender": "Specify allowed participant gender",
+        "location": {
+          "city": "Event city",
+          "venue": "Sports facility name",
+          "address": "Full venue address"
+        },
+        "stages": {
+          "title": "Add event stages",
+          "type": "Select stage type",
+          "dates": "Specify stage start and end dates"
+        }
+      },
+      "popovers": {
+        "eventType": {
+          "title": "Event Types",
+          "regional": "Regional level event (city, region)",
+          "national": "National level event (country)",
+          "international": "International level event"
+        },
+        "stages": {
+          "title": "Event Stages",
+          "registration": "Participant registration period",
+          "qualification": "Qualification competitions",
+          "semifinal": "Semifinal competitions",
+          "final": "Final competitions"
+        }
+      }
+    }
+  },
+  "filters": {
+    "title": "Filters",
+    "reset": "Reset",
+    "all": "All",
+    "sportType": "Sport Type",
+    "discipline": "Discipline",
+    "city": "City",
+    "participants": "Number of Participants",
+    "participantsRange": "Number of Participants (from {{min}} to {{max}})",
+    "gender": "Gender",
+    "genderMale": "Male",
+    "genderFemale": "Female",
+    "genderMixed": "Mixed",
+    "ageGroup": "Age Group",
+    "eventType": "Event Type",
+    "eventTypeRegional": "Regional",
+    "eventTypeNational": "National",
+    "eventTypeInternational": "International",
+    "dateRange": "Date Range",
+    "dateRangeStart": "From",
+    "dateRangeEnd": "To",
+    "status": "Status"
+  }
+}

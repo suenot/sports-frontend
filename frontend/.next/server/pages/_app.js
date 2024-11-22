@@ -1,0 +1,176 @@
+"use strict";
+/*
+ * ATTENTION: An "eval-source-map" devtool has been used.
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+(() => {
+var exports = {};
+exports.id = "pages/_app";
+exports.ids = ["pages/_app"];
+exports.modules = {
+
+/***/ "./src/pages/_app.tsx":
+/*!****************************!*\
+  !*** ./src/pages/_app.tsx ***!
+  \****************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {\n__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-dev-runtime */ \"react/jsx-dev-runtime\");\n/* harmony import */ var react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @chakra-ui/react */ \"@chakra-ui/react\");\n/* harmony import */ var _chakra_ui_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/icons */ \"@chakra-ui/icons\");\n/* harmony import */ var next_i18next__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! next-i18next */ \"next-i18next\");\n/* harmony import */ var next_i18next__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(next_i18next__WEBPACK_IMPORTED_MODULE_3__);\n/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! next/router */ \"./node_modules/next/router.js\");\n/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_4__);\n/* harmony import */ var _deep_foundation_store_query__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @deep-foundation/store/query */ \"@deep-foundation/store/query\");\n/* harmony import */ var _deep_foundation_store_query__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_deep_foundation_store_query__WEBPACK_IMPORTED_MODULE_5__);\n/* harmony import */ var _deep_foundation_store_cookies__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @deep-foundation/store/cookies */ \"@deep-foundation/store/cookies\");\n/* harmony import */ var _deep_foundation_store_cookies__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_deep_foundation_store_cookies__WEBPACK_IMPORTED_MODULE_6__);\n/* harmony import */ var _deep_foundation_store_local__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @deep-foundation/store/local */ \"@deep-foundation/store/local\");\n/* harmony import */ var _deep_foundation_store_local__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_deep_foundation_store_local__WEBPACK_IMPORTED_MODULE_7__);\n/* harmony import */ var _theme__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../theme */ \"./src/theme.ts\");\nvar __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__, _chakra_ui_icons__WEBPACK_IMPORTED_MODULE_2__, _theme__WEBPACK_IMPORTED_MODULE_8__]);\n([_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__, _chakra_ui_icons__WEBPACK_IMPORTED_MODULE_2__, _theme__WEBPACK_IMPORTED_MODULE_8__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);\n\n\n\n\n\n\n\n\n\nconst ColorModeToggle = ()=>{\n    const [colorMode, setColorMode] = (0,_deep_foundation_store_query__WEBPACK_IMPORTED_MODULE_5__.useQueryStore)(\"theme\", \"light\");\n    return /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.IconButton, {\n        \"aria-label\": \"Toggle color mode\",\n        icon: colorMode === \"light\" ? /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_chakra_ui_icons__WEBPACK_IMPORTED_MODULE_2__.MoonIcon, {}, void 0, false, {\n            fileName: \"/Users/suenot/work_dev_2/sport/frontend/src/pages/_app.tsx\",\n            lineNumber: 25,\n            columnNumber: 37\n        }, void 0) : /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_chakra_ui_icons__WEBPACK_IMPORTED_MODULE_2__.SunIcon, {}, void 0, false, {\n            fileName: \"/Users/suenot/work_dev_2/sport/frontend/src/pages/_app.tsx\",\n            lineNumber: 25,\n            columnNumber: 52\n        }, void 0),\n        onClick: ()=>setColorMode(colorMode === \"light\" ? \"dark\" : \"light\"),\n        size: \"sm\",\n        bg: colorMode === \"dark\" ? \"gray.700\" : \"white\",\n        color: colorMode === \"dark\" ? \"white\" : \"gray.800\"\n    }, void 0, false, {\n        fileName: \"/Users/suenot/work_dev_2/sport/frontend/src/pages/_app.tsx\",\n        lineNumber: 23,\n        columnNumber: 5\n    }, undefined);\n};\nconst LanguageSwitcher = ()=>{\n    const router = (0,next_router__WEBPACK_IMPORTED_MODULE_4__.useRouter)();\n    const { i18n } = (0,next_i18next__WEBPACK_IMPORTED_MODULE_3__.useTranslation)();\n    const switchLanguage = (locale)=>{\n        router.push(router.pathname, router.asPath, {\n            locale\n        });\n    };\n    return /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.HStack, {\n        spacing: 2,\n        children: [\n            /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Button, {\n                size: \"sm\",\n                colorScheme: i18n.language === \"ru\" ? \"blue\" : \"gray\",\n                onClick: ()=>switchLanguage(\"ru\"),\n                children: \"RU\"\n            }, void 0, false, {\n                fileName: \"/Users/suenot/work_dev_2/sport/frontend/src/pages/_app.tsx\",\n                lineNumber: 44,\n                columnNumber: 7\n            }, undefined),\n            /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Button, {\n                size: \"sm\",\n                colorScheme: i18n.language === \"en\" ? \"blue\" : \"gray\",\n                onClick: ()=>switchLanguage(\"en\"),\n                children: \"EN\"\n            }, void 0, false, {\n                fileName: \"/Users/suenot/work_dev_2/sport/frontend/src/pages/_app.tsx\",\n                lineNumber: 51,\n                columnNumber: 7\n            }, undefined)\n        ]\n    }, void 0, true, {\n        fileName: \"/Users/suenot/work_dev_2/sport/frontend/src/pages/_app.tsx\",\n        lineNumber: 43,\n        columnNumber: 5\n    }, undefined);\n};\nconst AppContent = ({ Component, pageProps })=>{\n    const router = (0,next_router__WEBPACK_IMPORTED_MODULE_4__.useRouter)();\n    const isApp = router.pathname.startsWith(\"/app\");\n    const [colorMode] = (0,_deep_foundation_store_query__WEBPACK_IMPORTED_MODULE_5__.useQueryStore)(\"theme\", \"light\");\n    return /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.ChakraProvider, {\n        theme: _theme__WEBPACK_IMPORTED_MODULE_8__[\"default\"],\n        children: [\n            /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.ColorModeScript, {\n                initialColorMode: colorMode\n            }, void 0, false, {\n                fileName: \"/Users/suenot/work_dev_2/sport/frontend/src/pages/_app.tsx\",\n                lineNumber: 71,\n                columnNumber: 7\n            }, undefined),\n            /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {\n                position: \"relative\",\n                minH: \"100vh\",\n                bg: colorMode === \"dark\" ? \"gray.800\" : \"white\",\n                color: colorMode === \"dark\" ? \"white\" : \"gray.800\",\n                children: [\n                    isApp && /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Flex, {\n                        position: \"fixed\",\n                        top: 4,\n                        right: 4,\n                        zIndex: 1000,\n                        gap: 4,\n                        p: 2,\n                        borderRadius: \"md\",\n                        boxShadow: \"sm\",\n                        bg: colorMode === \"dark\" ? \"gray.700\" : \"white\",\n                        children: [\n                            /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(ColorModeToggle, {}, void 0, false, {\n                                fileName: \"/Users/suenot/work_dev_2/sport/frontend/src/pages/_app.tsx\",\n                                lineNumber: 90,\n                                columnNumber: 13\n                            }, undefined),\n                            /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(LanguageSwitcher, {}, void 0, false, {\n                                fileName: \"/Users/suenot/work_dev_2/sport/frontend/src/pages/_app.tsx\",\n                                lineNumber: 91,\n                                columnNumber: 13\n                            }, undefined)\n                        ]\n                    }, void 0, true, {\n                        fileName: \"/Users/suenot/work_dev_2/sport/frontend/src/pages/_app.tsx\",\n                        lineNumber: 79,\n                        columnNumber: 11\n                    }, undefined),\n                    /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(Component, {\n                        ...pageProps\n                    }, void 0, false, {\n                        fileName: \"/Users/suenot/work_dev_2/sport/frontend/src/pages/_app.tsx\",\n                        lineNumber: 94,\n                        columnNumber: 9\n                    }, undefined)\n                ]\n            }, void 0, true, {\n                fileName: \"/Users/suenot/work_dev_2/sport/frontend/src/pages/_app.tsx\",\n                lineNumber: 72,\n                columnNumber: 7\n            }, undefined)\n        ]\n    }, void 0, true, {\n        fileName: \"/Users/suenot/work_dev_2/sport/frontend/src/pages/_app.tsx\",\n        lineNumber: 70,\n        columnNumber: 5\n    }, undefined);\n};\nfunction App({ Component, pageProps }) {\n    return /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_deep_foundation_store_query__WEBPACK_IMPORTED_MODULE_5__.QueryStoreProvider, {\n        useRouter: next_router__WEBPACK_IMPORTED_MODULE_4__.useRouter,\n        children: /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_deep_foundation_store_cookies__WEBPACK_IMPORTED_MODULE_6__.CookiesStoreProvider, {\n            children: /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(_deep_foundation_store_local__WEBPACK_IMPORTED_MODULE_7__.LocalStoreProvider, {\n                children: /*#__PURE__*/ (0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxDEV)(AppContent, {\n                    Component: Component,\n                    pageProps: pageProps\n                }, void 0, false, {\n                    fileName: \"/Users/suenot/work_dev_2/sport/frontend/src/pages/_app.tsx\",\n                    lineNumber: 105,\n                    columnNumber: 11\n                }, this)\n            }, void 0, false, {\n                fileName: \"/Users/suenot/work_dev_2/sport/frontend/src/pages/_app.tsx\",\n                lineNumber: 104,\n                columnNumber: 9\n            }, this)\n        }, void 0, false, {\n            fileName: \"/Users/suenot/work_dev_2/sport/frontend/src/pages/_app.tsx\",\n            lineNumber: 103,\n            columnNumber: 7\n        }, this)\n    }, void 0, false, {\n        fileName: \"/Users/suenot/work_dev_2/sport/frontend/src/pages/_app.tsx\",\n        lineNumber: 102,\n        columnNumber: 5\n    }, this);\n}\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,next_i18next__WEBPACK_IMPORTED_MODULE_3__.appWithTranslation)(App));\n\n__webpack_async_result__();\n} catch(e) { __webpack_async_result__(e); } });//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvcGFnZXMvX2FwcC50c3giLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFRMEI7QUFDMkI7QUFFYTtBQUMxQjtBQUN5QztBQUNYO0FBQ0o7QUFDckM7QUFFN0IsTUFBTWlCLGtCQUFrQjtJQUN0QixNQUFNLENBQUNDLFdBQVdDLGFBQWEsR0FBR04sMkVBQWFBLENBQW1CLFNBQVM7SUFFM0UscUJBQ0UsOERBQUNULHdEQUFVQTtRQUNUZ0IsY0FBVztRQUNYQyxNQUFNSCxjQUFjLHdCQUFVLDhEQUFDVixzREFBUUE7Ozs7bUNBQU0sOERBQUNELHFEQUFPQTs7Ozs7UUFDckRlLFNBQVMsSUFBTUgsYUFBYUQsY0FBYyxVQUFVLFNBQVM7UUFDN0RLLE1BQUs7UUFDTEMsSUFBSU4sY0FBYyxTQUFTLGFBQWE7UUFDeENPLE9BQU9QLGNBQWMsU0FBUyxVQUFVOzs7Ozs7QUFHOUM7QUFFQSxNQUFNUSxtQkFBbUI7SUFDdkIsTUFBTUMsU0FBU2hCLHNEQUFTQTtJQUN4QixNQUFNLEVBQUVpQixJQUFJLEVBQUUsR0FBR2xCLDREQUFjQTtJQUUvQixNQUFNbUIsaUJBQWlCLENBQUNDO1FBQ3RCSCxPQUFPSSxJQUFJLENBQUNKLE9BQU9LLFFBQVEsRUFBRUwsT0FBT00sTUFBTSxFQUFFO1lBQUVIO1FBQU87SUFDdkQ7SUFFQSxxQkFDRSw4REFBQzNCLG9EQUFNQTtRQUFDK0IsU0FBUzs7MEJBQ2YsOERBQUNoQyxvREFBTUE7Z0JBQ0xxQixNQUFLO2dCQUNMWSxhQUFhUCxLQUFLUSxRQUFRLEtBQUssT0FBTyxTQUFTO2dCQUMvQ2QsU0FBUyxJQUFNTyxlQUFlOzBCQUMvQjs7Ozs7OzBCQUdELDhEQUFDM0Isb0RBQU1BO2dCQUNMcUIsTUFBSztnQkFDTFksYUFBYVAsS0FBS1EsUUFBUSxLQUFLLE9BQU8sU0FBUztnQkFDL0NkLFNBQVMsSUFBTU8sZUFBZTswQkFDL0I7Ozs7Ozs7Ozs7OztBQUtQO0FBSUEsTUFBTVEsYUFBYSxDQUFDLEVBQUVDLFNBQVMsRUFBRUMsU0FBUyxFQUFtQjtJQUMzRCxNQUFNWixTQUFTaEIsc0RBQVNBO0lBQ3hCLE1BQU02QixRQUFRYixPQUFPSyxRQUFRLENBQUNTLFVBQVUsQ0FBQztJQUN6QyxNQUFNLENBQUN2QixVQUFVLEdBQUdMLDJFQUFhQSxDQUFtQixTQUFTO0lBRTdELHFCQUNFLDhEQUFDYiw0REFBY0E7UUFBQ2dCLE9BQU9BLDhDQUFLQTs7MEJBQzFCLDhEQUFDViw2REFBZUE7Z0JBQUNvQyxrQkFBa0J4Qjs7Ozs7OzBCQUNuQyw4REFBQ2pCLGlEQUFHQTtnQkFDRjBDLFVBQVM7Z0JBQ1RDLE1BQUs7Z0JBQ0xwQixJQUFJTixjQUFjLFNBQVMsYUFBYTtnQkFDeENPLE9BQU9QLGNBQWMsU0FBUyxVQUFVOztvQkFFdkNzQix1QkFDQyw4REFBQ25DLGtEQUFJQTt3QkFDSHNDLFVBQVM7d0JBQ1RFLEtBQUs7d0JBQ0xDLE9BQU87d0JBQ1BDLFFBQVE7d0JBQ1JDLEtBQUs7d0JBQ0xDLEdBQUc7d0JBQ0hDLGNBQWE7d0JBQ2JDLFdBQVU7d0JBQ1YzQixJQUFJTixjQUFjLFNBQVMsYUFBYTs7MENBRXhDLDhEQUFDRDs7Ozs7MENBQ0QsOERBQUNTOzs7Ozs7Ozs7OztrQ0FHTCw4REFBQ1k7d0JBQVcsR0FBR0MsU0FBUzs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBSWhDO0FBRUEsU0FBU2EsSUFBSSxFQUFFZCxTQUFTLEVBQUVDLFNBQVMsRUFBWTtJQUM3QyxxQkFDRSw4REFBQzNCLDRFQUFrQkE7UUFBQ0QsV0FBV0Esa0RBQVNBO2tCQUN0Qyw0RUFBQ0csZ0ZBQW9CQTtzQkFDbkIsNEVBQUNDLDRFQUFrQkE7MEJBQ2pCLDRFQUFDc0I7b0JBQVdDLFdBQVdBO29CQUFXQyxXQUFXQTs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBS3ZEO0FBRUEsaUVBQWU5QixnRUFBa0JBLENBQUMyQyxJQUFJQSxFQUFDIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vc3BvcnQtZnJvbnRlbmQvLi9zcmMvcGFnZXMvX2FwcC50c3g/ZjlkNiJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBcbiAgQ2hha3JhUHJvdmlkZXIsIFxuICBCb3gsIFxuICBCdXR0b24sIFxuICBIU3RhY2ssXG4gIEljb25CdXR0b24sXG4gIEZsZXgsXG4gIENvbG9yTW9kZVNjcmlwdFxufSBmcm9tICdAY2hha3JhLXVpL3JlYWN0JztcbmltcG9ydCB7IFN1bkljb24sIE1vb25JY29uIH0gZnJvbSAnQGNoYWtyYS11aS9pY29ucyc7XG5pbXBvcnQgdHlwZSB7IEFwcFByb3BzIH0gZnJvbSAnbmV4dC9hcHAnO1xuaW1wb3J0IHsgYXBwV2l0aFRyYW5zbGF0aW9uLCB1c2VUcmFuc2xhdGlvbiB9IGZyb20gJ25leHQtaTE4bmV4dCc7XG5pbXBvcnQgeyB1c2VSb3V0ZXIgfSBmcm9tICduZXh0L3JvdXRlcic7XG5pbXBvcnQgeyBRdWVyeVN0b3JlUHJvdmlkZXIsIHVzZVF1ZXJ5U3RvcmUgfSBmcm9tICdAZGVlcC1mb3VuZGF0aW9uL3N0b3JlL3F1ZXJ5JztcbmltcG9ydCB7IENvb2tpZXNTdG9yZVByb3ZpZGVyIH0gZnJvbSAnQGRlZXAtZm91bmRhdGlvbi9zdG9yZS9jb29raWVzJztcbmltcG9ydCB7IExvY2FsU3RvcmVQcm92aWRlciB9IGZyb20gJ0BkZWVwLWZvdW5kYXRpb24vc3RvcmUvbG9jYWwnO1xuaW1wb3J0IHRoZW1lIGZyb20gJy4uL3RoZW1lJztcblxuY29uc3QgQ29sb3JNb2RlVG9nZ2xlID0gKCkgPT4ge1xuICBjb25zdCBbY29sb3JNb2RlLCBzZXRDb2xvck1vZGVdID0gdXNlUXVlcnlTdG9yZTwnbGlnaHQnIHwgJ2RhcmsnPigndGhlbWUnLCAnbGlnaHQnKTtcblxuICByZXR1cm4gKFxuICAgIDxJY29uQnV0dG9uXG4gICAgICBhcmlhLWxhYmVsPVwiVG9nZ2xlIGNvbG9yIG1vZGVcIlxuICAgICAgaWNvbj17Y29sb3JNb2RlID09PSAnbGlnaHQnID8gPE1vb25JY29uIC8+IDogPFN1bkljb24gLz59XG4gICAgICBvbkNsaWNrPXsoKSA9PiBzZXRDb2xvck1vZGUoY29sb3JNb2RlID09PSAnbGlnaHQnID8gJ2RhcmsnIDogJ2xpZ2h0Jyl9XG4gICAgICBzaXplPVwic21cIlxuICAgICAgYmc9e2NvbG9yTW9kZSA9PT0gJ2RhcmsnID8gJ2dyYXkuNzAwJyA6ICd3aGl0ZSd9XG4gICAgICBjb2xvcj17Y29sb3JNb2RlID09PSAnZGFyaycgPyAnd2hpdGUnIDogJ2dyYXkuODAwJ31cbiAgICAvPlxuICApO1xufTtcblxuY29uc3QgTGFuZ3VhZ2VTd2l0Y2hlciA9ICgpID0+IHtcbiAgY29uc3Qgcm91dGVyID0gdXNlUm91dGVyKCk7XG4gIGNvbnN0IHsgaTE4biB9ID0gdXNlVHJhbnNsYXRpb24oKTtcblxuICBjb25zdCBzd2l0Y2hMYW5ndWFnZSA9IChsb2NhbGU6IHN0cmluZykgPT4ge1xuICAgIHJvdXRlci5wdXNoKHJvdXRlci5wYXRobmFtZSwgcm91dGVyLmFzUGF0aCwgeyBsb2NhbGUgfSk7XG4gIH07XG5cbiAgcmV0dXJuIChcbiAgICA8SFN0YWNrIHNwYWNpbmc9ezJ9PlxuICAgICAgPEJ1dHRvblxuICAgICAgICBzaXplPVwic21cIlxuICAgICAgICBjb2xvclNjaGVtZT17aTE4bi5sYW5ndWFnZSA9PT0gJ3J1JyA/ICdibHVlJyA6ICdncmF5J31cbiAgICAgICAgb25DbGljaz17KCkgPT4gc3dpdGNoTGFuZ3VhZ2UoJ3J1Jyl9XG4gICAgICA+XG4gICAgICAgIFJVXG4gICAgICA8L0J1dHRvbj5cbiAgICAgIDxCdXR0b25cbiAgICAgICAgc2l6ZT1cInNtXCJcbiAgICAgICAgY29sb3JTY2hlbWU9e2kxOG4ubGFuZ3VhZ2UgPT09ICdlbicgPyAnYmx1ZScgOiAnZ3JheSd9XG4gICAgICAgIG9uQ2xpY2s9eygpID0+IHN3aXRjaExhbmd1YWdlKCdlbicpfVxuICAgICAgPlxuICAgICAgICBFTlxuICAgICAgPC9CdXR0b24+XG4gICAgPC9IU3RhY2s+XG4gICk7XG59O1xuXG5pbnRlcmZhY2UgQXBwQ29udGVudFByb3BzIGV4dGVuZHMgQXBwUHJvcHMge31cblxuY29uc3QgQXBwQ29udGVudCA9ICh7IENvbXBvbmVudCwgcGFnZVByb3BzIH06IEFwcENvbnRlbnRQcm9wcykgPT4ge1xuICBjb25zdCByb3V0ZXIgPSB1c2VSb3V0ZXIoKTtcbiAgY29uc3QgaXNBcHAgPSByb3V0ZXIucGF0aG5hbWUuc3RhcnRzV2l0aCgnL2FwcCcpO1xuICBjb25zdCBbY29sb3JNb2RlXSA9IHVzZVF1ZXJ5U3RvcmU8J2xpZ2h0JyB8ICdkYXJrJz4oJ3RoZW1lJywgJ2xpZ2h0Jyk7XG5cbiAgcmV0dXJuIChcbiAgICA8Q2hha3JhUHJvdmlkZXIgdGhlbWU9e3RoZW1lfT5cbiAgICAgIDxDb2xvck1vZGVTY3JpcHQgaW5pdGlhbENvbG9yTW9kZT17Y29sb3JNb2RlfSAvPlxuICAgICAgPEJveCBcbiAgICAgICAgcG9zaXRpb249XCJyZWxhdGl2ZVwiIFxuICAgICAgICBtaW5IPVwiMTAwdmhcIlxuICAgICAgICBiZz17Y29sb3JNb2RlID09PSAnZGFyaycgPyAnZ3JheS44MDAnIDogJ3doaXRlJ31cbiAgICAgICAgY29sb3I9e2NvbG9yTW9kZSA9PT0gJ2RhcmsnID8gJ3doaXRlJyA6ICdncmF5LjgwMCd9XG4gICAgICA+XG4gICAgICAgIHtpc0FwcCAmJiAoXG4gICAgICAgICAgPEZsZXggXG4gICAgICAgICAgICBwb3NpdGlvbj1cImZpeGVkXCIgXG4gICAgICAgICAgICB0b3A9ezR9IFxuICAgICAgICAgICAgcmlnaHQ9ezR9IFxuICAgICAgICAgICAgekluZGV4PXsxMDAwfVxuICAgICAgICAgICAgZ2FwPXs0fVxuICAgICAgICAgICAgcD17Mn1cbiAgICAgICAgICAgIGJvcmRlclJhZGl1cz1cIm1kXCJcbiAgICAgICAgICAgIGJveFNoYWRvdz1cInNtXCJcbiAgICAgICAgICAgIGJnPXtjb2xvck1vZGUgPT09ICdkYXJrJyA/ICdncmF5LjcwMCcgOiAnd2hpdGUnfVxuICAgICAgICAgID5cbiAgICAgICAgICAgIDxDb2xvck1vZGVUb2dnbGUgLz5cbiAgICAgICAgICAgIDxMYW5ndWFnZVN3aXRjaGVyIC8+XG4gICAgICAgICAgPC9GbGV4PlxuICAgICAgICApfVxuICAgICAgICA8Q29tcG9uZW50IHsuLi5wYWdlUHJvcHN9IC8+XG4gICAgICA8L0JveD5cbiAgICA8L0NoYWtyYVByb3ZpZGVyPlxuICApO1xufTtcblxuZnVuY3Rpb24gQXBwKHsgQ29tcG9uZW50LCBwYWdlUHJvcHMgfTogQXBwUHJvcHMpIHtcbiAgcmV0dXJuIChcbiAgICA8UXVlcnlTdG9yZVByb3ZpZGVyIHVzZVJvdXRlcj17dXNlUm91dGVyfT5cbiAgICAgIDxDb29raWVzU3RvcmVQcm92aWRlcj5cbiAgICAgICAgPExvY2FsU3RvcmVQcm92aWRlcj5cbiAgICAgICAgICA8QXBwQ29udGVudCBDb21wb25lbnQ9e0NvbXBvbmVudH0gcGFnZVByb3BzPXtwYWdlUHJvcHN9IC8+XG4gICAgICAgIDwvTG9jYWxTdG9yZVByb3ZpZGVyPlxuICAgICAgPC9Db29raWVzU3RvcmVQcm92aWRlcj5cbiAgICA8L1F1ZXJ5U3RvcmVQcm92aWRlcj5cbiAgKTtcbn1cblxuZXhwb3J0IGRlZmF1bHQgYXBwV2l0aFRyYW5zbGF0aW9uKEFwcCk7XG4iXSwibmFtZXMiOlsiQ2hha3JhUHJvdmlkZXIiLCJCb3giLCJCdXR0b24iLCJIU3RhY2siLCJJY29uQnV0dG9uIiwiRmxleCIsIkNvbG9yTW9kZVNjcmlwdCIsIlN1bkljb24iLCJNb29uSWNvbiIsImFwcFdpdGhUcmFuc2xhdGlvbiIsInVzZVRyYW5zbGF0aW9uIiwidXNlUm91dGVyIiwiUXVlcnlTdG9yZVByb3ZpZGVyIiwidXNlUXVlcnlTdG9yZSIsIkNvb2tpZXNTdG9yZVByb3ZpZGVyIiwiTG9jYWxTdG9yZVByb3ZpZGVyIiwidGhlbWUiLCJDb2xvck1vZGVUb2dnbGUiLCJjb2xvck1vZGUiLCJzZXRDb2xvck1vZGUiLCJhcmlhLWxhYmVsIiwiaWNvbiIsIm9uQ2xpY2siLCJzaXplIiwiYmciLCJjb2xvciIsIkxhbmd1YWdlU3dpdGNoZXIiLCJyb3V0ZXIiLCJpMThuIiwic3dpdGNoTGFuZ3VhZ2UiLCJsb2NhbGUiLCJwdXNoIiwicGF0aG5hbWUiLCJhc1BhdGgiLCJzcGFjaW5nIiwiY29sb3JTY2hlbWUiLCJsYW5ndWFnZSIsIkFwcENvbnRlbnQiLCJDb21wb25lbnQiLCJwYWdlUHJvcHMiLCJpc0FwcCIsInN0YXJ0c1dpdGgiLCJpbml0aWFsQ29sb3JNb2RlIiwicG9zaXRpb24iLCJtaW5IIiwidG9wIiwicmlnaHQiLCJ6SW5kZXgiLCJnYXAiLCJwIiwiYm9yZGVyUmFkaXVzIiwiYm94U2hhZG93IiwiQXBwIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./src/pages/_app.tsx\n");
+
+/***/ }),
+
+/***/ "./src/theme.ts":
+/*!**********************!*\
+  !*** ./src/theme.ts ***!
+  \**********************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {\n__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @chakra-ui/react */ \"@chakra-ui/react\");\nvar __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__]);\n_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__)[0];\n\nconst config = {\n    initialColorMode: \"light\",\n    useSystemColorMode: true\n};\nconst theme = (0,_chakra_ui_react__WEBPACK_IMPORTED_MODULE_0__.extendTheme)({\n    config,\n    styles: {\n        global: (props)=>({\n                body: {\n                    bg: props.colorMode === \"dark\" ? \"gray.800\" : \"gray.50\",\n                    color: props.colorMode === \"dark\" ? \"white\" : \"gray.800\"\n                }\n            })\n    },\n    components: {\n        Table: {\n            variants: {\n                simple: {\n                    th: {\n                        borderBottom: \"1px\",\n                        borderColor: \"gray.200\",\n                        color: \"gray.600\",\n                        fontSize: \"sm\",\n                        fontWeight: \"medium\"\n                    },\n                    td: {\n                        borderBottom: \"1px\",\n                        borderColor: \"gray.200\"\n                    }\n                }\n            }\n        },\n        // Добавляем стили для темной темы\n        Button: {\n            variants: {\n                solid: (props)=>({\n                        bg: props.colorMode === \"dark\" ? \"blue.200\" : \"blue.500\",\n                        color: props.colorMode === \"dark\" ? \"gray.800\" : \"white\",\n                        _hover: {\n                            bg: props.colorMode === \"dark\" ? \"blue.300\" : \"blue.600\"\n                        }\n                    })\n            }\n        },\n        IconButton: {\n            variants: {\n                solid: (props)=>({\n                        bg: props.colorMode === \"dark\" ? \"blue.200\" : \"blue.500\",\n                        color: props.colorMode === \"dark\" ? \"gray.800\" : \"white\",\n                        _hover: {\n                            bg: props.colorMode === \"dark\" ? \"blue.300\" : \"blue.600\"\n                        }\n                    })\n            }\n        },\n        Card: {\n            baseStyle: (props)=>({\n                    container: {\n                        bg: props.colorMode === \"dark\" ? \"gray.700\" : \"white\",\n                        boxShadow: \"sm\"\n                    }\n                })\n        },\n        Modal: {\n            baseStyle: (props)=>({\n                    dialog: {\n                        bg: props.colorMode === \"dark\" ? \"gray.700\" : \"white\"\n                    }\n                })\n        },\n        Popover: {\n            baseStyle: (props)=>({\n                    content: {\n                        bg: props.colorMode === \"dark\" ? \"gray.700\" : \"white\"\n                    }\n                })\n        },\n        Tooltip: {\n            baseStyle: (props)=>({\n                    bg: props.colorMode === \"dark\" ? \"gray.200\" : \"gray.700\",\n                    color: props.colorMode === \"dark\" ? \"gray.800\" : \"white\"\n                })\n        }\n    },\n    colors: {\n        brand: {\n            50: \"#E3F2FD\",\n            100: \"#BBDEFB\",\n            200: \"#90CAF9\",\n            300: \"#64B5F6\",\n            400: \"#42A5F5\",\n            500: \"#2196F3\",\n            600: \"#1E88E5\",\n            700: \"#1976D2\",\n            800: \"#1565C0\",\n            900: \"#0D47A1\"\n        }\n    }\n});\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (theme);\n\n__webpack_async_result__();\n} catch(e) { __webpack_async_result__(e); } });//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvdGhlbWUudHMiLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7QUFBaUU7QUFFakUsTUFBTUMsU0FBc0I7SUFDMUJDLGtCQUFrQjtJQUNsQkMsb0JBQW9CO0FBQ3RCO0FBRUEsTUFBTUMsUUFBUUosNkRBQVdBLENBQUM7SUFDeEJDO0lBQ0FJLFFBQVE7UUFDTkMsUUFBUSxDQUFDQyxRQUFnQjtnQkFDdkJDLE1BQU07b0JBQ0pDLElBQUlGLE1BQU1HLFNBQVMsS0FBSyxTQUFTLGFBQWE7b0JBQzlDQyxPQUFPSixNQUFNRyxTQUFTLEtBQUssU0FBUyxVQUFVO2dCQUNoRDtZQUNGO0lBQ0Y7SUFDQUUsWUFBWTtRQUNWQyxPQUFPO1lBQ0xDLFVBQVU7Z0JBQ1JDLFFBQVE7b0JBQ05DLElBQUk7d0JBQ0ZDLGNBQWM7d0JBQ2RDLGFBQWE7d0JBQ2JQLE9BQU87d0JBQ1BRLFVBQVU7d0JBQ1ZDLFlBQVk7b0JBQ2Q7b0JBQ0FDLElBQUk7d0JBQ0ZKLGNBQWM7d0JBQ2RDLGFBQWE7b0JBQ2Y7Z0JBQ0Y7WUFDRjtRQUNGO1FBQ0Esa0NBQWtDO1FBQ2xDSSxRQUFRO1lBQ05SLFVBQVU7Z0JBQ1JTLE9BQU8sQ0FBQ2hCLFFBQWdCO3dCQUN0QkUsSUFBSUYsTUFBTUcsU0FBUyxLQUFLLFNBQVMsYUFBYTt3QkFDOUNDLE9BQU9KLE1BQU1HLFNBQVMsS0FBSyxTQUFTLGFBQWE7d0JBQ2pEYyxRQUFROzRCQUNOZixJQUFJRixNQUFNRyxTQUFTLEtBQUssU0FBUyxhQUFhO3dCQUNoRDtvQkFDRjtZQUNGO1FBQ0Y7UUFDQWUsWUFBWTtZQUNWWCxVQUFVO2dCQUNSUyxPQUFPLENBQUNoQixRQUFnQjt3QkFDdEJFLElBQUlGLE1BQU1HLFNBQVMsS0FBSyxTQUFTLGFBQWE7d0JBQzlDQyxPQUFPSixNQUFNRyxTQUFTLEtBQUssU0FBUyxhQUFhO3dCQUNqRGMsUUFBUTs0QkFDTmYsSUFBSUYsTUFBTUcsU0FBUyxLQUFLLFNBQVMsYUFBYTt3QkFDaEQ7b0JBQ0Y7WUFDRjtRQUNGO1FBQ0FnQixNQUFNO1lBQ0pDLFdBQVcsQ0FBQ3BCLFFBQWdCO29CQUMxQnFCLFdBQVc7d0JBQ1RuQixJQUFJRixNQUFNRyxTQUFTLEtBQUssU0FBUyxhQUFhO3dCQUM5Q21CLFdBQVc7b0JBQ2I7Z0JBQ0Y7UUFDRjtRQUNBQyxPQUFPO1lBQ0xILFdBQVcsQ0FBQ3BCLFFBQWdCO29CQUMxQndCLFFBQVE7d0JBQ050QixJQUFJRixNQUFNRyxTQUFTLEtBQUssU0FBUyxhQUFhO29CQUNoRDtnQkFDRjtRQUNGO1FBQ0FzQixTQUFTO1lBQ1BMLFdBQVcsQ0FBQ3BCLFFBQWdCO29CQUMxQjBCLFNBQVM7d0JBQ1B4QixJQUFJRixNQUFNRyxTQUFTLEtBQUssU0FBUyxhQUFhO29CQUNoRDtnQkFDRjtRQUNGO1FBQ0F3QixTQUFTO1lBQ1BQLFdBQVcsQ0FBQ3BCLFFBQWdCO29CQUMxQkUsSUFBSUYsTUFBTUcsU0FBUyxLQUFLLFNBQVMsYUFBYTtvQkFDOUNDLE9BQU9KLE1BQU1HLFNBQVMsS0FBSyxTQUFTLGFBQWE7Z0JBQ25EO1FBQ0Y7SUFDRjtJQUNBeUIsUUFBUTtRQUNOQyxPQUFPO1lBQ0wsSUFBSTtZQUNKLEtBQUs7WUFDTCxLQUFLO1lBQ0wsS0FBSztZQUNMLEtBQUs7WUFDTCxLQUFLO1lBQ0wsS0FBSztZQUNMLEtBQUs7WUFDTCxLQUFLO1lBQ0wsS0FBSztRQUNQO0lBQ0Y7QUFDRjtBQUVBLGlFQUFlaEMsS0FBS0EsRUFBQyIsInNvdXJjZXMiOlsid2VicGFjazovL3Nwb3J0LWZyb250ZW5kLy4vc3JjL3RoZW1lLnRzP2RjOWEiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgZXh0ZW5kVGhlbWUsIHR5cGUgVGhlbWVDb25maWcgfSBmcm9tICdAY2hha3JhLXVpL3JlYWN0JztcblxuY29uc3QgY29uZmlnOiBUaGVtZUNvbmZpZyA9IHtcbiAgaW5pdGlhbENvbG9yTW9kZTogJ2xpZ2h0JyxcbiAgdXNlU3lzdGVtQ29sb3JNb2RlOiB0cnVlLFxufTtcblxuY29uc3QgdGhlbWUgPSBleHRlbmRUaGVtZSh7XG4gIGNvbmZpZyxcbiAgc3R5bGVzOiB7XG4gICAgZ2xvYmFsOiAocHJvcHM6IGFueSkgPT4gKHtcbiAgICAgIGJvZHk6IHtcbiAgICAgICAgYmc6IHByb3BzLmNvbG9yTW9kZSA9PT0gJ2RhcmsnID8gJ2dyYXkuODAwJyA6ICdncmF5LjUwJyxcbiAgICAgICAgY29sb3I6IHByb3BzLmNvbG9yTW9kZSA9PT0gJ2RhcmsnID8gJ3doaXRlJyA6ICdncmF5LjgwMCcsXG4gICAgICB9LFxuICAgIH0pLFxuICB9LFxuICBjb21wb25lbnRzOiB7XG4gICAgVGFibGU6IHtcbiAgICAgIHZhcmlhbnRzOiB7XG4gICAgICAgIHNpbXBsZToge1xuICAgICAgICAgIHRoOiB7XG4gICAgICAgICAgICBib3JkZXJCb3R0b206ICcxcHgnLFxuICAgICAgICAgICAgYm9yZGVyQ29sb3I6ICdncmF5LjIwMCcsXG4gICAgICAgICAgICBjb2xvcjogJ2dyYXkuNjAwJyxcbiAgICAgICAgICAgIGZvbnRTaXplOiAnc20nLFxuICAgICAgICAgICAgZm9udFdlaWdodDogJ21lZGl1bScsXG4gICAgICAgICAgfSxcbiAgICAgICAgICB0ZDoge1xuICAgICAgICAgICAgYm9yZGVyQm90dG9tOiAnMXB4JyxcbiAgICAgICAgICAgIGJvcmRlckNvbG9yOiAnZ3JheS4yMDAnLFxuICAgICAgICAgIH0sXG4gICAgICAgIH0sXG4gICAgICB9LFxuICAgIH0sXG4gICAgLy8g0JTQvtCx0LDQstC70Y/QtdC8INGB0YLQuNC70Lgg0LTQu9GPINGC0LXQvNC90L7QuSDRgtC10LzRi1xuICAgIEJ1dHRvbjoge1xuICAgICAgdmFyaWFudHM6IHtcbiAgICAgICAgc29saWQ6IChwcm9wczogYW55KSA9PiAoe1xuICAgICAgICAgIGJnOiBwcm9wcy5jb2xvck1vZGUgPT09ICdkYXJrJyA/ICdibHVlLjIwMCcgOiAnYmx1ZS41MDAnLFxuICAgICAgICAgIGNvbG9yOiBwcm9wcy5jb2xvck1vZGUgPT09ICdkYXJrJyA/ICdncmF5LjgwMCcgOiAnd2hpdGUnLFxuICAgICAgICAgIF9ob3Zlcjoge1xuICAgICAgICAgICAgYmc6IHByb3BzLmNvbG9yTW9kZSA9PT0gJ2RhcmsnID8gJ2JsdWUuMzAwJyA6ICdibHVlLjYwMCcsXG4gICAgICAgICAgfSxcbiAgICAgICAgfSksXG4gICAgICB9LFxuICAgIH0sXG4gICAgSWNvbkJ1dHRvbjoge1xuICAgICAgdmFyaWFudHM6IHtcbiAgICAgICAgc29saWQ6IChwcm9wczogYW55KSA9PiAoe1xuICAgICAgICAgIGJnOiBwcm9wcy5jb2xvck1vZGUgPT09ICdkYXJrJyA/ICdibHVlLjIwMCcgOiAnYmx1ZS41MDAnLFxuICAgICAgICAgIGNvbG9yOiBwcm9wcy5jb2xvck1vZGUgPT09ICdkYXJrJyA/ICdncmF5LjgwMCcgOiAnd2hpdGUnLFxuICAgICAgICAgIF9ob3Zlcjoge1xuICAgICAgICAgICAgYmc6IHByb3BzLmNvbG9yTW9kZSA9PT0gJ2RhcmsnID8gJ2JsdWUuMzAwJyA6ICdibHVlLjYwMCcsXG4gICAgICAgICAgfSxcbiAgICAgICAgfSksXG4gICAgICB9LFxuICAgIH0sXG4gICAgQ2FyZDoge1xuICAgICAgYmFzZVN0eWxlOiAocHJvcHM6IGFueSkgPT4gKHtcbiAgICAgICAgY29udGFpbmVyOiB7XG4gICAgICAgICAgYmc6IHByb3BzLmNvbG9yTW9kZSA9PT0gJ2RhcmsnID8gJ2dyYXkuNzAwJyA6ICd3aGl0ZScsXG4gICAgICAgICAgYm94U2hhZG93OiAnc20nLFxuICAgICAgICB9LFxuICAgICAgfSksXG4gICAgfSxcbiAgICBNb2RhbDoge1xuICAgICAgYmFzZVN0eWxlOiAocHJvcHM6IGFueSkgPT4gKHtcbiAgICAgICAgZGlhbG9nOiB7XG4gICAgICAgICAgYmc6IHByb3BzLmNvbG9yTW9kZSA9PT0gJ2RhcmsnID8gJ2dyYXkuNzAwJyA6ICd3aGl0ZScsXG4gICAgICAgIH0sXG4gICAgICB9KSxcbiAgICB9LFxuICAgIFBvcG92ZXI6IHtcbiAgICAgIGJhc2VTdHlsZTogKHByb3BzOiBhbnkpID0+ICh7XG4gICAgICAgIGNvbnRlbnQ6IHtcbiAgICAgICAgICBiZzogcHJvcHMuY29sb3JNb2RlID09PSAnZGFyaycgPyAnZ3JheS43MDAnIDogJ3doaXRlJyxcbiAgICAgICAgfSxcbiAgICAgIH0pLFxuICAgIH0sXG4gICAgVG9vbHRpcDoge1xuICAgICAgYmFzZVN0eWxlOiAocHJvcHM6IGFueSkgPT4gKHtcbiAgICAgICAgYmc6IHByb3BzLmNvbG9yTW9kZSA9PT0gJ2RhcmsnID8gJ2dyYXkuMjAwJyA6ICdncmF5LjcwMCcsXG4gICAgICAgIGNvbG9yOiBwcm9wcy5jb2xvck1vZGUgPT09ICdkYXJrJyA/ICdncmF5LjgwMCcgOiAnd2hpdGUnLFxuICAgICAgfSksXG4gICAgfSxcbiAgfSxcbiAgY29sb3JzOiB7XG4gICAgYnJhbmQ6IHtcbiAgICAgIDUwOiAnI0UzRjJGRCcsXG4gICAgICAxMDA6ICcjQkJERUZCJyxcbiAgICAgIDIwMDogJyM5MENBRjknLFxuICAgICAgMzAwOiAnIzY0QjVGNicsXG4gICAgICA0MDA6ICcjNDJBNUY1JyxcbiAgICAgIDUwMDogJyMyMTk2RjMnLFxuICAgICAgNjAwOiAnIzFFODhFNScsXG4gICAgICA3MDA6ICcjMTk3NkQyJyxcbiAgICAgIDgwMDogJyMxNTY1QzAnLFxuICAgICAgOTAwOiAnIzBENDdBMScsXG4gICAgfSxcbiAgfSxcbn0pO1xuXG5leHBvcnQgZGVmYXVsdCB0aGVtZTtcbiJdLCJuYW1lcyI6WyJleHRlbmRUaGVtZSIsImNvbmZpZyIsImluaXRpYWxDb2xvck1vZGUiLCJ1c2VTeXN0ZW1Db2xvck1vZGUiLCJ0aGVtZSIsInN0eWxlcyIsImdsb2JhbCIsInByb3BzIiwiYm9keSIsImJnIiwiY29sb3JNb2RlIiwiY29sb3IiLCJjb21wb25lbnRzIiwiVGFibGUiLCJ2YXJpYW50cyIsInNpbXBsZSIsInRoIiwiYm9yZGVyQm90dG9tIiwiYm9yZGVyQ29sb3IiLCJmb250U2l6ZSIsImZvbnRXZWlnaHQiLCJ0ZCIsIkJ1dHRvbiIsInNvbGlkIiwiX2hvdmVyIiwiSWNvbkJ1dHRvbiIsIkNhcmQiLCJiYXNlU3R5bGUiLCJjb250YWluZXIiLCJib3hTaGFkb3ciLCJNb2RhbCIsImRpYWxvZyIsIlBvcG92ZXIiLCJjb250ZW50IiwiVG9vbHRpcCIsImNvbG9ycyIsImJyYW5kIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./src/theme.ts\n");
+
+/***/ }),
+
+/***/ "@deep-foundation/store/cookies":
+/*!*************************************************!*\
+  !*** external "@deep-foundation/store/cookies" ***!
+  \*************************************************/
+/***/ ((module) => {
+
+module.exports = require("@deep-foundation/store/cookies");
+
+/***/ }),
+
+/***/ "@deep-foundation/store/local":
+/*!***********************************************!*\
+  !*** external "@deep-foundation/store/local" ***!
+  \***********************************************/
+/***/ ((module) => {
+
+module.exports = require("@deep-foundation/store/local");
+
+/***/ }),
+
+/***/ "@deep-foundation/store/query":
+/*!***********************************************!*\
+  !*** external "@deep-foundation/store/query" ***!
+  \***********************************************/
+/***/ ((module) => {
+
+module.exports = require("@deep-foundation/store/query");
+
+/***/ }),
+
+/***/ "next-i18next":
+/*!*******************************!*\
+  !*** external "next-i18next" ***!
+  \*******************************/
+/***/ ((module) => {
+
+module.exports = require("next-i18next");
+
+/***/ }),
+
+/***/ "next/dist/compiled/next-server/pages.runtime.dev.js":
+/*!**********************************************************************!*\
+  !*** external "next/dist/compiled/next-server/pages.runtime.dev.js" ***!
+  \**********************************************************************/
+/***/ ((module) => {
+
+module.exports = require("next/dist/compiled/next-server/pages.runtime.dev.js");
+
+/***/ }),
+
+/***/ "react":
+/*!************************!*\
+  !*** external "react" ***!
+  \************************/
+/***/ ((module) => {
+
+module.exports = require("react");
+
+/***/ }),
+
+/***/ "react-dom":
+/*!****************************!*\
+  !*** external "react-dom" ***!
+  \****************************/
+/***/ ((module) => {
+
+module.exports = require("react-dom");
+
+/***/ }),
+
+/***/ "react/jsx-dev-runtime":
+/*!****************************************!*\
+  !*** external "react/jsx-dev-runtime" ***!
+  \****************************************/
+/***/ ((module) => {
+
+module.exports = require("react/jsx-dev-runtime");
+
+/***/ }),
+
+/***/ "@chakra-ui/icons":
+/*!***********************************!*\
+  !*** external "@chakra-ui/icons" ***!
+  \***********************************/
+/***/ ((module) => {
+
+module.exports = import("@chakra-ui/icons");;
+
+/***/ }),
+
+/***/ "@chakra-ui/react":
+/*!***********************************!*\
+  !*** external "@chakra-ui/react" ***!
+  \***********************************/
+/***/ ((module) => {
+
+module.exports = import("@chakra-ui/react");;
+
+/***/ }),
+
+/***/ "fs":
+/*!*********************!*\
+  !*** external "fs" ***!
+  \*********************/
+/***/ ((module) => {
+
+module.exports = require("fs");
+
+/***/ }),
+
+/***/ "stream":
+/*!*************************!*\
+  !*** external "stream" ***!
+  \*************************/
+/***/ ((module) => {
+
+module.exports = require("stream");
+
+/***/ }),
+
+/***/ "zlib":
+/*!***********************!*\
+  !*** external "zlib" ***!
+  \***********************/
+/***/ ((module) => {
+
+module.exports = require("zlib");
+
+/***/ })
+
+};
+;
+
+// load runtime
+var __webpack_require__ = require("../webpack-runtime.js");
+__webpack_require__.C(exports);
+var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
+var __webpack_exports__ = __webpack_require__.X(0, ["vendor-chunks/next","vendor-chunks/@swc"], () => (__webpack_exec__("./src/pages/_app.tsx")));
+module.exports = __webpack_exports__;
+
+})();
