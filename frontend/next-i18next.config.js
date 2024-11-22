@@ -3,5 +3,7 @@ module.exports = {
     defaultLocale: 'ru',
     locales: ['ru', 'en']
   },
-  localePath: './public/locales'
+  localePath: './public/locales',
+  ns: ['sections/common', 'sections/landing', 'sections/events'],
+  defaultNS: 'sections/common'
 };

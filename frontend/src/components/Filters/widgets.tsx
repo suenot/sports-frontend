@@ -6,21 +6,30 @@ import {
   RangeSliderThumb,
   HStack,
   Text,
+  VStack,
 } from '@chakra-ui/react';
 import { WidgetProps } from '@rjsf/utils';
+import { useTranslation } from 'next-i18next';
 
 export const RangeWidget = ({
   value,
   onChange,
   schema,
   uiSchema,
+  label,
 }: WidgetProps) => {
+  const { t } = useTranslation(['sections/events']);
   const min = schema.items?.minimum || 0;
   const max = schema.items?.maximum || 1000;
   const step = schema.items?.multipleOf || 50;
 
   return (
-    <>
+    <VStack spacing={2} align="stretch">
+      {label && (
+        <Text fontSize="md" color="gray.600" fontWeight="500">
+          {label}
+        </Text>
+      )}
       <RangeSlider
         min={min}
         max={max}
@@ -35,10 +44,12 @@ export const RangeWidget = ({
         <RangeSliderThumb index={0} />
         <RangeSliderThumb index={1} />
       </RangeSlider>
-      <HStack justify="space-between" mt={1}>
-        <Text fontSize="sm">{value ? value[0] : min}</Text>
-        <Text fontSize="sm">{value ? value[1] : max}</Text>
-      </HStack>
-    </>
+      <Text fontSize="xs" color="gray.600">
+        {t('filters.participantsRange', {
+          min: value ? value[0] : min,
+          max: value ? value[1] : max
+        })}
+      </Text>
+    </VStack>
   );
 };

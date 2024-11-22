@@ -1,0 +1,146 @@
+{
+  "title": "Мероприятия",
+  "noEvents": "Нет доступных мероприятий",
+  "location": "Место проведения",
+  "sportType": "Вид спорта",
+  "stages": "Этапы",
+  "details": "Детали мероприятия",
+  "status": {
+    "published": "Опубликовано",
+    "draft": "Черновик",
+    "cancelled": "Отменено",
+    "completed": "Завершено"
+  },
+  "stage": {
+    "status": {
+      "upcoming": "Предстоит",
+      "ongoing": "В процессе",
+      "completed": "Завершен",
+      "cancelled": "Отменен"
+    },
+    "title": "Этап {{number}}: {{name}}",
+    "type": {
+      "registration": "Регистрация",
+      "qualification": "Квалификация",
+      "semifinal": "Полуфинал",
+      "final": "Финал",
+      "other": "Другое"
+    }
+  },
+  "sports": {
+    "swimming": "Плавание",
+    "athletics": "Легкая атлетика",
+    "gymnastics": "Гимнастика",
+    "boxing": "Бокс",
+    "wrestling": "Борьба",
+    "football": "Футбол",
+    "basketball": "Баскетбол",
+    "volleyball": "Волейбол",
+    "tennis": "Теннис",
+    "hockey": "Хоккей"
+  },
+  "disciplines": {
+    "freestyle": "Вольный стиль",
+    "butterfly": "Баттерфляй",
+    "sprint": "Спринт",
+    "marathon": "Марафон",
+    "artistic": "Художественная",
+    "rhythmic": "Ритмическая",
+    "lightweight": "Легкий вес",
+    "heavyweight": "Тяжелый вес",
+    "greco-roman": "Греко-римская",
+    "freestyle-wrestling": "Вольная борьба",
+    "professional": "Профессионалы",
+    "amateur": "Любители",
+    "junior": "Юниоры",
+    "veteran": "Ветераны"
+  },
+  "actions": {
+    "editEvent": "Редактировать мероприятие",
+    "deleteEvent": "Удалить мероприятие",
+    "addEvent": "Добавить мероприятие",
+    "viewEvent": "Просмотр мероприятия",
+    "saveEvent": "Сохранить мероприятие",
+    "cancelEdit": "Отменить редактирование",
+    "confirmDelete": "Подтвердить удаление",
+    "closeDetails": "Закрыть детали",
+    "save": "Сохранить",
+    "cancel": "Отменить",
+    "role": "Текущая роль: {{role}}",
+    "roleManager": "Менеджер",
+    "roleUser": "Пользователь"
+  },
+  "filters": {
+    "title": "Фильтры",
+    "settings": "Настройки фильтров",
+    "apply": "Применить",
+    "reset": "Сбросить",
+    "all": "Все",
+    "sportType": "Вид спорта",
+    "discipline": "Дисциплина",
+    "city": "Город",
+    "participants": "Количество участников",
+    "participantsRange": "От {{min}} до {{max}} участников",
+    "gender": "Пол",
+    "genderMale": "Мужской",
+    "genderFemale": "Женский",
+    "genderMixed": "Смешанный",
+    "ageGroup": "Возрастная группа",
+    "eventType": "Тип мероприятия",
+    "eventTypeRegional": "Региональное",
+    "eventTypeNational": "Национальное",
+    "eventTypeInternational": "Международное",
+    "dateRange": {
+      "title": "Период проведения",
+      "start": "Начало",
+      "end": "Конец"
+    },
+    "status": "Статус",
+    "date": {
+      "label": "Дата",
+      "start": "Начало",
+      "end": "Конец"
+    },
+    "location": {
+      "label": "Место проведения",
+      "country": "Страна",
+      "city": "Город",
+      "venue": "Площадка"
+    },
+    "sport": {
+      "label": "Вид спорта",
+      "discipline": "Дисциплина"
+    }
+  },
+  "form": {
+    "editTitle": "Редактирование мероприятия",
+    "addTitle": "Добавление мероприятия",
+    "editSuccess": "Мероприятие успешно обновлено",
+    "addSuccess": "Мероприятие успешно создано",
+    "error": "Произошла ошибка",
+    "title": "Название",
+    "titlePlaceholder": "Введите название мероприятия",
+    "shortDescription": "Краткое описание",
+    "shortDescriptionPlaceholder": "Введите краткое описание мероприятия",
+    "description": "Описание",
+    "descriptionPlaceholder": "Введите полное описание мероприятия",
+    "sportType": "Вид спорта",
+    "sportTypePlaceholder": "Выберите вид спорта",
+    "discipline": "Дисциплина",
+    "disciplinePlaceholder": "Выберите дисциплину",
+    "eventType": "Тип мероприятия",
+    "types": {
+      "regional": "Региональное",
+      "national": "Национальное",
+      "international": "Международное"
+    },
+    "location": {
+      "city": "Город",
+      "cityPlaceholder": "Введите город",
+      "venue": "Место проведения",
+      "venuePlaceholder": "Введите место проведения",
+      "address": "Адрес",
+      "addressPlaceholder": "Введите адрес"
+    }
+  }
+}

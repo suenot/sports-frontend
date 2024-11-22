@@ -1,28 +1,28 @@
-import { Box, Container, Heading } from '@chakra-ui/react';
-import { EventsListContainer } from '../../components/EventsList/EventsListContainer';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import type { GetStaticProps } from 'next';
+import { useEventData } from '../../hooks/useEventData';
+import { EventsPageLayout } from '../../components/EventsList/EventsPageLayout';
+import { useState } from 'react';
 
 export default function AppHome() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('sections/events');
+  const [role, setRole] = useState<'user' | 'manager'>('user');
 
   return (
-    <Container maxW="container.xl" py={8}>
-      <Box mb={8}>
-        <Heading as="h1" size="xl">
-          {t('events.title')}
-        </Heading>
-      </Box>
-      <EventsListContainer />
-    </Container>
+    <EventsPageLayout 
+      title={t('title')}
+      role={role}
+      onRoleChange={setRole}
+      showEventsList={true}
+    />
   );
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? 'ru', ['common'])),
+      ...(await serverSideTranslations(locale ?? 'ru', ['sections/events', 'sections/common'])),
     },
   };
 };

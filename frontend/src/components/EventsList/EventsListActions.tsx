@@ -37,7 +37,7 @@ export const EventsListActions: React.FC<EventsListActionsProps> = ({
   onEventDelete,
   selectedEvent
 }) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(['sections/events']);
   
   const [isFormOpen, setIsFormOpen] = useQueryStore<boolean>('isFormOpen', false);
   const [isEditMode, setIsEditMode] = useQueryStore<boolean>('isEditMode', false);
@@ -105,8 +105,8 @@ export const EventsListActions: React.FC<EventsListActionsProps> = ({
           onClick={onRoleToggle}
           size="lg"
         >
-          {t('events.actions.role', {
-            role: t(role === 'manager' ? 'events.actions.roleManager' : 'events.actions.roleUser')
+          {t('actions.role', {
+            role: t(role === 'manager' ? 'actions.roleManager' : 'actions.roleUser')
           })}
         </Button>
 
@@ -117,7 +117,7 @@ export const EventsListActions: React.FC<EventsListActionsProps> = ({
             onClick={handleAddClick}
             size="lg"
           >
-            {t('events.actions.addEvent')}
+            {t('actions.addEvent')}
           </Button>
         )}
       </HStack>
@@ -131,7 +131,7 @@ export const EventsListActions: React.FC<EventsListActionsProps> = ({
         <ModalOverlay />
         <ModalContent maxW="800px">
           <ModalHeader>
-            {t(isEditMode ? 'events.actions.editEvent' : 'events.actions.addEvent')}
+            {t(isEditMode ? 'actions.editEvent' : 'actions.addEvent')}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
@@ -146,13 +146,13 @@ export const EventsListActions: React.FC<EventsListActionsProps> = ({
             >
               <ButtonGroup mt={4} spacing={4} width="100%">
                 <Button type="submit" colorScheme="blue" size="lg">
-                  {t('events.actions.save')}
+                  {t('actions.save')}
                 </Button>
                 <Button 
                   onClick={handleCloseForm}
                   size="lg"
                 >
-                  {t('events.actions.cancel')}
+                  {t('actions.cancel')}
                 </Button>
               </ButtonGroup>
             </Form>

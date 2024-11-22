@@ -1,11 +1,14 @@
+'use client';
+
 import React, { useMemo } from 'react';
-import { Box, Button, HStack, Text, useColorModeValue } from '@chakra-ui/react';
+import { Box, Button, HStack, Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import Form from '@rjsf/chakra-ui';
 import { RJSFSchema, UiSchema } from '@rjsf/utils';
 import validator from '@rjsf/validator-ajv8';
 import { getUpdatedSchema, uiSchema } from './schema';
 import { RangeWidget } from './widgets';
+import { useQueryStore } from '@deep-foundation/store/query';
 
 export interface FiltersState {
   sportType: string;
@@ -22,27 +25,36 @@ export interface FiltersState {
   status: string;
 }
 
+const defaultFilters: FiltersState = {
+  sportType: '',
+  discipline: '',
+  city: '',
+  participantsRange: [0, 1000],
+  gender: '',
+  ageGroup: '',
+  eventType: '',
+  dateRange: {
+    start: '',
+    end: '',
+  },
+  status: '',
+};
+
 interface EventsFiltersProps {
-  filters: FiltersState;
-  onFiltersChange: (filters: FiltersState) => void;
   sportTypes: string[];
   disciplines: string[];
   cities: string[];
   ageGroups: string[];
-  onReset: () => void;
 }
 
 export const EventsFilters: React.FC<EventsFiltersProps> = ({
-  filters,
-  onFiltersChange,
   sportTypes,
   disciplines,
   cities,
   ageGroups,
-  onReset,
 }) => {
-  const { t } = useTranslation('common');
-  const bg = useColorModeValue('white', 'gray.800');
+  const { t } = useTranslation(['sections/events']);
+  const [filters, setFilters] = useQueryStore<FiltersState>('filters', defaultFilters);
 
   // Получаем обновленную схему с актуальными данными для селектов
   const schema = useMemo(() => 
@@ -65,23 +77,27 @@ export const EventsFilters: React.FC<EventsFiltersProps> = ({
     });
   };
 
-  // Обработчик изменений формы с выводом в консоль для отладки
+  // Обработчик изменений формы
   const handleChange = (e: any) => {
-    console.log('Form data changed:', e.formData);
-    onFiltersChange(e.formData);
+    setFilters(e.formData);
+  };
+
+  // Обработчик сброса фильтров
+  const handleReset = () => {
+    setFilters(defaultFilters);
   };
 
   return (
-    <Box p={4} bg={bg} borderRadius="lg" shadow="sm" mb={4}>
+    <Box>
       <HStack justify="space-between" align="center" mb={4}>
-        <Text fontSize="lg" fontWeight="bold">
-          {t('filters.title')}
+        <Text fontSize="md" fontWeight="medium">
+          {t('filters.settings')}
         </Text>
         <Button
           size="sm"
           variant="ghost"
           colorScheme="blue"
-          onClick={onReset}
+          onClick={handleReset}
         >
           {t('filters.reset')}
         </Button>
@@ -89,17 +105,21 @@ export const EventsFilters: React.FC<EventsFiltersProps> = ({
 
       <Form
         schema={schema as RJSFSchema}
-        uiSchema={uiSchema as UiSchema}
+        uiSchema={{
+          ...uiSchema as UiSchema,
+          'ui:submitButtonOptions': {
+            norender: true,
+          },
+        }}
         validator={validator}
         formData={filters}
         onChange={handleChange}
         widgets={widgets}
         transformErrors={transformErrors}
-        // Локализация лейблов через функцию перевода
         translateString={id => t(id)}
-        // Отключаем стандартную кнопку отправки формы
-        children={<></>}
-      />
+      >
+        <Box display="none" />
+      </Form>
     </Box>
   );
 };

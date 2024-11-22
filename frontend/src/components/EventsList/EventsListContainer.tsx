@@ -1,143 +1,195 @@
-import React, { useState } from 'react';
+'use client';
+
+import React from 'react';
+import { Box, IconButton, useBreakpointValue, useDisclosure } from '@chakra-ui/react';
+import { SearchIcon, AddIcon } from '@chakra-ui/icons';
 import { EventsListUI } from './EventsListUI';
-import { EventsFilters, FiltersState } from '../Filters';
-import { mockEvents } from './data';
-import { Grid, GridItem, useToast } from '@chakra-ui/react';
-import { EventsListActions } from './EventsListActions';
+import { FiltersDrawer } from '../Filters/FiltersDrawer';
+import { EventDrawer } from './EventDrawer';
+import { EventFormDrawer } from './EventFormDrawer';
 import { Event } from './types';
+import { FiltersState } from '../Filters/EventsFilters';
+import { useEventData } from '../../hooks/useEventData';
 import { useQueryStore } from '@deep-foundation/store/query';
 
-const initialFilters: FiltersState = {
-  sportType: '',
-  discipline: '',
-  city: '',
-  participantsRange: [0, 1000],
-  gender: '',
-  ageGroup: '',
-  eventType: '',
-  dateRange: {
-    start: '',
-    end: '',
-  },
-  status: '',
-};
+interface EventsListContainerProps {
+  events: Event[];
+  isLoading: boolean;
+  role: 'user' | 'manager';
+  onEventEdit?: (event: Event) => void;
+  onEventDelete?: (eventId: string) => void;
+  sportTypes: string[];
+  disciplines: string[];
+  cities: string[];
+  ageGroups: string[];
+}
 
-// Временные данные для селектов, в будущем будут получаться с сервера
-const mockFilterData = {
-  sportTypes: ['Футбол', 'Баскетбол', 'Волейбол', 'Теннис', 'Хоккей'],
-  disciplines: ['Профессионалы', 'Любители', 'Юниоры', 'Ветераны'],
-  cities: ['Москва', 'Санкт-Петербург', 'Казань', 'Сочи', 'Екатеринбург'],
-  ageGroups: ['6-12', '13-17', '18-25', '26-35', '36+'],
-};
+export const EventsListContainer: React.FC<EventsListContainerProps> = ({
+  events,
+  isLoading,
+  role,
+  onEventEdit,
+  onEventDelete,
+  sportTypes,
+  disciplines,
+  cities,
+  ageGroups,
+}) => {
+  const { getEventById } = useEventData();
+  
+  // Используем хуки для управления состоянием
+  const [isEventViewOpen, setIsEventViewOpen] = useQueryStore('events.view.open', false);
+  const [isEventEditOpen, setIsEventEditOpen] = useQueryStore('events.edit.open', false);
+  const [isEventAddOpen, setIsEventAddOpen] = useQueryStore('events.add.open', false);
+  const [currentEventId, setCurrentEventId] = useQueryStore<string | null>('events.current', null);
 
-export const EventsListContainer: React.FC = () => {
-  const [isLoading] = useState(false);
-  const [filters, setFilters] = useQueryStore<FiltersState>('filters', initialFilters);
-  const [events, setEvents] = useState<Event[]>(mockEvents);
-  const [selectedEvent, setSelectedEvent] = useQueryStore<Event | undefined>('selectedEvent', undefined);
-  const [role, setRole] = useQueryStore<'user' | 'manager'>('role', 'user');
-  const toast = useToast();
+  // Состояние для фильтров drawer
+  const {
+    isOpen: isFiltersOpen,
+    onOpen: onFiltersOpen,
+    onClose: onFiltersClose,
+  } = useDisclosure();
 
-  const handleFiltersChange = (newFilters: FiltersState) => {
-    setFilters(newFilters);
-    console.log('Отправка фильтров на сервер:', newFilters);
+  // Определяем отступ для контента в зависимости от размера экрана
+  const contentPadding = useBreakpointValue({
+    base: '0',
+    md: '60px',
+  });
+
+  // Получаем текущее событие из списка по ID
+  const currentEvent = currentEventId 
+    ? getEventById(currentEventId)
+    : null;
+
+  // Обработчики для управления состоянием drawer'ов
+  const openEventView = (eventId: string) => {
+    setCurrentEventId(eventId);
+    setIsEventViewOpen(true);
   };
 
-  const handleFiltersReset = () => {
-    setFilters(initialFilters);
-    console.log('Сброс фильтров, запрос данных без фильтров');
+  const openEventEdit = (eventId: string) => {
+    setCurrentEventId(eventId);
+    setIsEventEditOpen(true);
   };
 
+  const openEventAdd = () => {
+    setIsEventAddOpen(true);
+  };
+
+  const closeEvent = () => {
+    setIsEventViewOpen(false);
+    setIsEventEditOpen(false);
+    setIsEventAddOpen(false);
+    setCurrentEventId(null);
+  };
+
+  // Обработчик клика по событию
   const handleEventClick = (eventId: string) => {
-    // Теперь этот метод только для раскрытия/закрытия аккордеона
-    console.log('Event clicked:', eventId);
+    openEventView(eventId);
   };
 
-  const handleRoleToggle = () => {
-    setRole(prev => prev === 'user' ? 'manager' : 'user');
-    setSelectedEvent(undefined);
+  // Обработчик редактирования события
+  const handleEventEdit = (event: Event) => {
+    openEventEdit(event.id);
   };
 
-  const handleEventAdd = (newEvent: Event) => {
-    // В реальном приложении здесь был бы запрос к API
-    const eventWithId = {
-      ...newEvent,
-      id: Math.random().toString(36).substr(2, 9)
-    };
-    setEvents(prev => [...prev, eventWithId]);
-    toast({
-      title: 'Событие добавлено',
-      status: 'success',
-      duration: 3000,
-      isClosable: true,
-    });
+  // Обработчик добавления события
+  const handleEventAdd = (eventData: Partial<Event>) => {
+    console.log('Adding event:', eventData);
+    // Здесь будет логика добавления события
+    closeEvent();
   };
 
-  const handleEventEdit = (updatedEvent: Event) => {
-    // В реальном приложении здесь был бы запрос к API
-    setEvents(prev => prev.map(event => 
-      event.id === updatedEvent.id ? updatedEvent : event
-    ));
-    setSelectedEvent(undefined); // Очищаем выбранное событие после редактирования
-    toast({
-      title: 'Событие обновлено',
-      status: 'success',
-      duration: 3000,
-      isClosable: true,
-    });
-  };
-
-  const handleEventDelete = (eventId: string) => {
-    // В реальном приложении здесь был бы запрос к API
-    setEvents(prev => prev.filter(event => event.id !== eventId));
-    setSelectedEvent(undefined);
-    toast({
-      title: 'Событие удалено',
-      status: 'success',
-      duration: 3000,
-      isClosable: true,
-    });
-  };
-
-  const handleEditButtonClick = (event: Event) => {
-    setSelectedEvent(event);
+  // Обработчик сохранения отредактированного события
+  const handleEventEditSubmit = (eventData: Partial<Event>) => {
+    if (currentEvent) {
+      onEventEdit?.({ ...currentEvent, ...eventData });
+    }
+    closeEvent();
   };
 
   return (
-    <Grid
-      templateColumns={{ base: '1fr', md: '300px 1fr' }}
-      gap={4}
-      p={4}
-    >
-      <GridItem>
-        <EventsFilters
-          filters={filters}
-          onFiltersChange={handleFiltersChange}
-          sportTypes={mockFilterData.sportTypes}
-          disciplines={mockFilterData.disciplines}
-          cities={mockFilterData.cities}
-          ageGroups={mockFilterData.ageGroups}
-          onReset={handleFiltersReset}
+    <Box position="relative">
+      {/* Кнопки управления drawer'ами */}
+      <Box
+        position="fixed"
+        bottom={4}
+        right={4}
+        zIndex={2}
+        display="flex"
+        gap={2}
+      >
+        {role === 'manager' && (
+          <IconButton
+            aria-label="Добавить событие"
+            icon={<AddIcon />}
+            onClick={openEventAdd}
+            colorScheme="green"
+            size="lg"
+            rounded="full"
+            shadow="lg"
+          />
+        )}
+        <IconButton
+          aria-label="Открыть фильтры"
+          icon={<SearchIcon />}
+          onClick={onFiltersOpen}
+          colorScheme="blue"
+          size="lg"
+          rounded="full"
+          shadow="lg"
         />
-      </GridItem>
-      <GridItem>
-        <EventsListActions
-          role={role}
-          onRoleToggle={handleRoleToggle}
-          onEventAdd={handleEventAdd}
-          onEventEdit={handleEventEdit}
-          onEventDelete={handleEventDelete}
-          selectedEvent={selectedEvent}
-        />
+      </Box>
+
+      {/* Основной список событий */}
+      <Box 
+        pl={{ base: 0, md: contentPadding }} 
+        pr={{ base: 0, md: contentPadding }}
+        transition="padding 0.2s"
+      >
         <EventsListUI
           events={events}
-          onEventClick={handleEventClick}
           isLoading={isLoading}
           role={role}
-          onEventEdit={handleEditButtonClick}
-          onEventDelete={handleEventDelete}
+          onEventClick={handleEventClick}
+          onEventEdit={handleEventEdit}
+          onEventDelete={onEventDelete}
         />
-      </GridItem>
-    </Grid>
+      </Box>
+
+      {/* Drawer с фильтрами */}
+      <FiltersDrawer
+        isOpen={isFiltersOpen}
+        onClose={onFiltersClose}
+        sportTypes={sportTypes}
+        disciplines={disciplines}
+        cities={cities}
+        ageGroups={ageGroups}
+      />
+
+      {/* Drawer с деталями события */}
+      <EventDrawer
+        isOpen={isEventViewOpen}
+        onClose={closeEvent}
+        event={currentEvent}
+      />
+
+      {/* Drawer для добавления события */}
+      <EventFormDrawer
+        isOpen={isEventAddOpen}
+        onClose={closeEvent}
+        onSubmit={handleEventAdd}
+        isEdit={false}
+      />
+
+      {/* Drawer для редактирования события */}
+      <EventFormDrawer
+        isOpen={isEventEditOpen}
+        onClose={closeEvent}
+        event={currentEvent}
+        onSubmit={handleEventEditSubmit}
+        isEdit={true}
+      />
+    </Box>
   );
 };

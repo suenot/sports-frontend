@@ -8,16 +8,14 @@ import {
   VStack,
   SimpleGrid,
   Icon,
-  List,
-  ListItem,
-  ListIcon,
   useColorMode,
 } from '@chakra-ui/react';
-import { CheckCircleIcon, CalendarIcon, SearchIcon, BellIcon } from '@chakra-ui/icons';
+import { CalendarIcon, SearchIcon, BellIcon } from '@chakra-ui/icons';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import type { GetStaticProps } from 'next';
 import Link from 'next/link';
+import { AnimatedStats } from '../components/Landing/AnimatedStats';
 
 const Feature = ({ title, text, icon }: { title: string; text: string; icon: any }) => {
   const { colorMode } = useColorMode();
@@ -38,17 +36,17 @@ const Feature = ({ title, text, icon }: { title: string; text: string; icon: any
   );
 };
 
-const sections = ['frontend', 'backend', 'integrations', 'devops'] as const;
+const sections = ['frontend', 'backend', 'integrations'] as const;
 type TechSection = typeof sections[number];
 
 export default function Landing() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(['sections/landing']);
   const { colorMode } = useColorMode();
 
-  // Получаем массивы из переводов с правильной типизацией
-  const advantageItems: string[] = (t('landing.advantages.items', { returnObjects: true }) as string[]) || [];
   const getTechItems = (section: TechSection): string[] => 
-    (t(`landing.tech.${section}.items`, { returnObjects: true }) as string[]) || [];
+    (t(`tech.${section}.items`, { returnObjects: true }) as string[]) || [];
+
+  const advantageItems: string[] = (t('advantages.items', { returnObjects: true }) as string[]) || [];
 
   return (
     <Box>
@@ -61,11 +59,12 @@ export default function Landing() {
         <Container maxW="container.xl">
           <VStack spacing={8} align="center" textAlign="center">
             <Heading size="2xl">
-              {t('landing.hero.title')}
+              {t('hero.title')}
             </Heading>
             <Text fontSize="xl" maxW="2xl">
-              {t('landing.hero.description')}
+              {t('hero.description')}
             </Text>
+            <AnimatedStats />
             <Link href="/app" passHref legacyBehavior>
               <Button 
                 as="a"
@@ -73,7 +72,7 @@ export default function Landing() {
                 colorScheme={colorMode === 'dark' ? 'blue' : 'white'}
                 variant={colorMode === 'dark' ? 'solid' : 'outline'}
               >
-                {t('landing.hero.cta')}
+                {t('hero.cta')}
               </Button>
             </Link>
           </VStack>
@@ -85,27 +84,27 @@ export default function Landing() {
         <Container maxW="container.xl">
           <VStack spacing={12}>
             <VStack spacing={4} textAlign="center">
-              <Heading>{t('landing.problems.title')}</Heading>
+              <Heading>{t('problems.title')}</Heading>
               <Text fontSize="lg" maxW="2xl">
-                {t('landing.problems.description')}
+                {t('problems.description')}
               </Text>
             </VStack>
 
             <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8} width="100%">
               <Feature
                 icon={CalendarIcon}
-                title={t('landing.problems.features.sync.title')}
-                text={t('landing.problems.features.sync.description')}
+                title={t('problems.features.sync.title')}
+                text={t('problems.features.sync.description')}
               />
               <Feature
                 icon={SearchIcon}
-                title={t('landing.problems.features.search.title')}
-                text={t('landing.problems.features.search.description')}
+                title={t('problems.features.search.title')}
+                text={t('problems.features.search.description')}
               />
               <Feature
                 icon={BellIcon}
-                title={t('landing.problems.features.notifications.title')}
-                text={t('landing.problems.features.notifications.description')}
+                title={t('problems.features.notifications.title')}
+                text={t('problems.features.notifications.description')}
               />
             </SimpleGrid>
           </VStack>
@@ -118,16 +117,30 @@ export default function Landing() {
         bg={colorMode === 'dark' ? 'gray.700' : 'gray.50'}
       >
         <Container maxW="container.xl">
-          <VStack spacing={8} align="start">
-            <Heading>{t('landing.advantages.title')}</Heading>
-            <List spacing={4}>
+          <VStack spacing={12}>
+            <VStack spacing={4} textAlign="center">
+              <Heading>{t('advantages.title')}</Heading>
+            </VStack>
+            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8} width="100%">
               {advantageItems.map((item: string, index: number) => (
-                <ListItem key={index}>
-                  <ListIcon as={CheckCircleIcon} color="green.500" />
-                  {item}
-                </ListItem>
+                <Box
+                  key={index}
+                  p={8}
+                  bg={colorMode === 'dark' ? 'gray.800' : 'white'}
+                  borderRadius="xl"
+                  shadow="lg"
+                  transition="all 0.2s"
+                  _hover={{
+                    transform: 'translateY(-4px)',
+                    shadow: 'xl'
+                  }}
+                >
+                  <Text fontSize="xl" fontWeight="medium">
+                    {item}
+                  </Text>
+                </Box>
               ))}
-            </List>
+            </SimpleGrid>
           </VStack>
         </Container>
       </Box>
@@ -136,11 +149,11 @@ export default function Landing() {
       <Box py={20}>
         <Container maxW="container.xl">
           <VStack spacing={8} align="center" textAlign="center">
-            <Heading>{t('landing.tech.title')}</Heading>
-            <SimpleGrid columns={{ base: 2, md: 4 }} spacing={8}>
+            <Heading>{t('tech.title')}</Heading>
+            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8}>
               {sections.map((section) => (
                 <VStack key={section}>
-                  <Heading size="md">{t(`landing.tech.${section}.title`)}</Heading>
+                  <Heading size="md">{t(`tech.${section}.title`)}</Heading>
                   {getTechItems(section).map((item: string, index: number) => (
                     <Text key={index}>{item}</Text>
                   ))}
@@ -164,9 +177,9 @@ export default function Landing() {
             justify="space-between"
           >
             <VStack align="start" spacing={4} mb={{ base: 8, md: 0 }}>
-              <Heading size="lg">{t('landing.cta.title')}</Heading>
+              <Heading size="lg">{t('cta.title')}</Heading>
               <Text fontSize="lg">
-                {t('landing.cta.description')}
+                {t('cta.description')}
               </Text>
             </VStack>
             <Link href="/app" passHref legacyBehavior>
@@ -176,7 +189,7 @@ export default function Landing() {
                 colorScheme={colorMode === 'dark' ? 'blue' : 'white'}
                 variant={colorMode === 'dark' ? 'solid' : 'outline'}
               >
-                {t('landing.cta.button')}
+                {t('cta.button')}
               </Button>
             </Link>
           </Flex>
@@ -189,7 +202,7 @@ export default function Landing() {
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? 'ru', ['common'])),
+      ...(await serverSideTranslations(locale ?? 'ru', ['sections/common', 'sections/landing', 'sections/events'])),
     },
   };
 };

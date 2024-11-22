@@ -3,9 +3,7 @@ import {
   Box,
   Accordion,
   AccordionItem,
-  AccordionButton,
   AccordionPanel,
-  AccordionIcon,
   Badge,
   VStack,
   Spinner,
@@ -18,6 +16,7 @@ import {
   Tooltip,
   Flex,
   useColorModeValue,
+  Heading,
 } from '@chakra-ui/react';
 import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
 import { useTranslation } from 'next-i18next';
@@ -71,7 +70,7 @@ const formatDate = (date: string, locale: string) => {
 };
 
 const StagesList: React.FC<{ stages: Stage[] }> = ({ stages }) => {
-  const { t, i18n } = useTranslation('common');
+  const { t, i18n } = useTranslation(['sections/events']);
   const stageBg = useColorModeValue('gray.50', 'gray.700');
 
   return (
@@ -85,10 +84,10 @@ const StagesList: React.FC<{ stages: Stage[] }> = ({ stages }) => {
               py={0.5}
               borderRadius="full"
             >
-              {t(`events.stage.status.${stage.status}`)}
+              {t(`stage.status.${stage.status}`)}
             </Badge>
             <Text fontWeight="medium">
-              {t('events.stage.title', { number: stage.title.split(':')[0].split(' ')[1], name: stage.title.split(':')[1].trim() })}
+              {stage.title}
             </Text>
           </HStack>
           <Text fontSize="sm" color="gray.600">
@@ -114,7 +113,7 @@ const EventItem: React.FC<{
   onEdit?: () => void;
   onDelete?: () => void;
 }> = ({ event, onClick, role, onEdit, onDelete }) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(['sections/events']);
   const itemBg = useColorModeValue('white', 'gray.800');
   const hoverBg = useColorModeValue('gray.50', 'gray.700');
 
@@ -127,11 +126,15 @@ const EventItem: React.FC<{
       bg={itemBg}
     >
       <Flex>
-        <AccordionButton 
+        <Box 
           flex="1"
           p={4}
           _hover={{ bg: hoverBg }}
-          onClick={onClick}
+          cursor="pointer"
+          onClick={(e) => {
+            e.stopPropagation();
+            onClick();
+          }}
         >
           <HStack flex="1" spacing={4}>
             {event.media.thumbnails[0] && (
@@ -146,7 +149,7 @@ const EventItem: React.FC<{
             )}
             <Box flex="1" textAlign="left">
               <Text fontWeight="bold">
-                {t(`events.sports.${event.sportType}`)} - {event.title.split(' - ')[1]}
+                {event.title}
               </Text>
               <Text fontSize="sm" color="gray.600">{event.shortDescription}</Text>
             </Box>
@@ -159,17 +162,16 @@ const EventItem: React.FC<{
               fontSize="xs"
               fontWeight="bold"
             >
-              {t(`events.status.${event.status}`)}
+              {t(`status.${event.status}`)}
             </Badge>
           </HStack>
-          <AccordionIcon ml={4} />
-        </AccordionButton>
+        </Box>
         
         {role === 'manager' && (
           <Flex p={2} alignItems="center">
-            <Tooltip label={t('events.actions.editEvent')}>
+            <Tooltip label={t('actions.editEvent')}>
               <IconButton
-                aria-label={t('events.actions.editEvent')}
+                aria-label={t('actions.editEvent')}
                 icon={<EditIcon />}
                 colorScheme="yellow"
                 size="sm"
@@ -180,9 +182,9 @@ const EventItem: React.FC<{
                 }}
               />
             </Tooltip>
-            <Tooltip label={t('events.actions.deleteEvent')}>
+            <Tooltip label={t('actions.deleteEvent')}>
               <IconButton
-                aria-label={t('events.actions.deleteEvent')}
+                aria-label={t('actions.deleteEvent')}
                 icon={<DeleteIcon />}
                 colorScheme="red"
                 size="sm"
@@ -200,17 +202,17 @@ const EventItem: React.FC<{
         <Box>
           <HStack spacing={4} mb={4}>
             <Box>
-              <Text fontSize="sm" color="gray.600">{t('events.location')}</Text>
+              <Text fontSize="sm" color="gray.600">{t('location')}</Text>
               <Text>{event.location.city}</Text>
               <Text fontSize="sm">{event.location.venue}</Text>
             </Box>
             <Box>
-              <Text fontSize="sm" color="gray.600">{t('events.sportType')}</Text>
-              <Text>{t(`events.sports.${event.sportType}`)}</Text>
-              <Text fontSize="sm">{t(`events.disciplines.${event.discipline}`)}</Text>
+              <Text fontSize="sm" color="gray.600">{t('sportType')}</Text>
+              <Text>{t(`sports.${event.sportType}`)}</Text>
+              <Text fontSize="sm">{t(`disciplines.${event.discipline}`)}</Text>
             </Box>
           </HStack>
-          <Text fontSize="sm" color="gray.600" mb={2}>{t('events.stages')}:</Text>
+          <Text fontSize="sm" color="gray.600" mb={2}>{t('stages')}:</Text>
           <StagesList stages={event.stages} />
         </Box>
       </AccordionPanel>
@@ -226,12 +228,12 @@ export const EventsListUI: React.FC<EventsListUIProps> = ({
   onEventEdit,
   onEventDelete,
 }) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(['sections/events']);
   const containerBg = useColorModeValue('white', 'gray.800');
 
   if (isLoading) {
     return (
-      <Center h="200px">
+      <Center h="calc(100vh - 64px)">
         <Spinner size="xl" color="blue.500" thickness="4px" />
       </Center>
     );
@@ -239,22 +241,35 @@ export const EventsListUI: React.FC<EventsListUIProps> = ({
 
   if (!events || events.length === 0) {
     return (
-      <Center h="200px">
-        <Text>{t('events.noEvents')}</Text>
+      <Center h="calc(100vh - 64px)">
+        <Text>{t('noEvents')}</Text>
       </Center>
     );
   }
 
   return (
-    <Box w="100%" p={4}>
+    <Box 
+      w="100%" 
+      h="calc(100vh - 64px)" 
+      p={4} 
+      position="relative"
+      overflow="hidden"
+    >
       <Box 
         w="100%" 
+        h="100%"
         bg={containerBg}
         borderRadius="lg" 
         shadow="sm" 
-        maxH="80vh"
         overflowY="auto"
+        position="absolute"
+        top={0}
+        left={0}
+        right={0}
+        bottom={0}
+        p={4}
       >
+        <Heading size="lg" mb={4}>{t('title')}</Heading>
         <Accordion allowMultiple defaultIndex={[]}>
           {events.map((event) => (
             <EventItem

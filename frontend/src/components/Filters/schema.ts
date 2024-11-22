@@ -23,7 +23,6 @@ export const getFilterSchema = (t: TFunction): RJSFSchema => ({
     participantsRange: {
       type: 'array',
       title: t('filters.participants'),
-      description: t('filters.participantsRange', { min: 0, max: 1000 }),
       items: {
         type: 'number',
         minimum: 0,
@@ -64,17 +63,17 @@ export const getFilterSchema = (t: TFunction): RJSFSchema => ({
     },
     dateRange: {
       type: 'object',
-      title: t('filters.dateRange'),
+      title: '',
       properties: {
         start: {
           type: 'string',
           format: 'date',
-          title: t('filters.dateRangeStart'),
+          title: t('filters.dateRange.start'),
         },
         end: {
           type: 'string',
           format: 'date',
-          title: t('filters.dateRangeEnd'),
+          title: t('filters.dateRange.end'),
         },
       },
     },
@@ -84,10 +83,10 @@ export const getFilterSchema = (t: TFunction): RJSFSchema => ({
       enum: ['', 'draft', 'published', 'cancelled', 'completed'],
       enumNames: [
         t('filters.all'),
-        t('events.status.draft'),
-        t('events.status.published'),
-        t('events.status.cancelled'),
-        t('events.status.completed')
+        t('status.draft'),
+        t('status.published'),
+        t('status.cancelled'),
+        t('status.completed')
       ],
       default: '',
     },
@@ -95,15 +94,29 @@ export const getFilterSchema = (t: TFunction): RJSFSchema => ({
 });
 
 export const uiSchema: UiSchema = {
+  'ui:submitButtonOptions': {
+    norender: true,
+  },
+  '*': {
+    classNames: 'filter-field',
+    'ui:titleMargin': '0.5rem',
+    'ui:titleProps': {
+      fontSize: 'sm',
+      color: 'gray.600'
+    }
+  },
   participantsRange: {
     'ui:widget': 'range',
   },
   dateRange: {
     'ui:field': 'dateRange',
-  },
-  'ui:submitButtonOptions': {
-    norender: true,
-  },
+    classNames: 'date-range-field',
+    'ui:titleProps': {
+      fontSize: 'xs',
+      fontWeight: '500',
+      color: 'gray.600'
+    }
+  }
 };
 
 // Функция для обновления схемы с динамическими данными
@@ -122,12 +135,12 @@ export const getUpdatedSchema = (
       sportType: {
         ...baseSchema.properties.sportType,
         enum: ['', ...sportTypes],
-        enumNames: [t('filters.all'), ...sportTypes.map(type => t(`events.sports.${type}`))],
+        enumNames: [t('filters.all'), ...sportTypes.map(type => t(`sports.${type}`))],
       },
       discipline: {
         ...baseSchema.properties.discipline,
         enum: ['', ...disciplines],
-        enumNames: [t('filters.all'), ...disciplines.map(disc => t(`events.disciplines.${disc}`))],
+        enumNames: [t('filters.all'), ...disciplines.map(disc => t(`disciplines.${disc}`))],
       },
       city: {
         ...baseSchema.properties.city,
