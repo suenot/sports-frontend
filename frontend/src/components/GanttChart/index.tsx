@@ -7,6 +7,13 @@ interface PositionedEvent {
   row: number;
 }
 
+interface MonthGroup {
+  month: string;
+  year: number;
+  startIndex: number;
+  daysCount: number;
+}
+
 export const GanttChart = () => {
   const events = useMemo(() => {
     // Сортируем события по максимальному количеству участников среди всех этапов
@@ -47,6 +54,38 @@ export const GanttChart = () => {
     }
     return dates;
   }, [timeRange]);
+
+  // Группируем дни по месяцам
+  const monthGroups = useMemo(() => {
+    const groups: MonthGroup[] = [];
+    let currentGroup: MonthGroup | null = null;
+
+    dateRange.forEach((date, index) => {
+      const month = date.toLocaleString('default', { month: 'long' });
+      const year = date.getFullYear();
+      const monthYear = `${month}-${year}`;
+
+      if (!currentGroup || `${currentGroup.month}-${currentGroup.year}` !== monthYear) {
+        if (currentGroup) {
+          groups.push(currentGroup);
+        }
+        currentGroup = {
+          month,
+          year,
+          startIndex: index,
+          daysCount: 1
+        };
+      } else {
+        currentGroup.daysCount++;
+      }
+    });
+
+    if (currentGroup) {
+      groups.push(currentGroup);
+    }
+
+    return groups;
+  }, [dateRange]);
 
   // Распределяем события по строкам (как на itch.io)
   const positionedEvents = useMemo(() => {
@@ -101,40 +140,99 @@ export const GanttChart = () => {
       p={4}
       overflowX="auto"
     >
-      {/* Header with dates */}
-      <HStack spacing={0} mb={4} position="sticky" top={0} bg={bgColor} zIndex={1}>
-        <HStack spacing={0} width="100%">
-          {dateRange.map((date, index) => (
+      {/* Header with months and dates */}
+      <VStack spacing={0} mb={4} position="sticky" top={0} bg={bgColor} zIndex={1}>
+        {/* Months row */}
+        <HStack spacing={0} width="100%" borderBottom="1px" borderColor={borderColor}>
+          {monthGroups.map((group, index) => (
             <Box
               key={index}
-              minW="240px"
+              minW={`${group.daysCount * 240}px`}
               p={2}
               borderLeft="1px"
               borderColor={borderColor}
-              textAlign="center"
+              bg={useColorModeValue(
+                index % 2 === 0 ? 'gray.200' : 'gray.300',
+                index % 2 === 0 ? 'gray.700' : 'gray.800'
+              )}
+              position="relative"
             >
-              <Text fontSize="md">{date.getDate()}</Text>
-              <Text fontSize="sm" color="gray.500">
-                {date.toLocaleString('default', { month: 'long' })}
+              <Text 
+                fontSize="lg" 
+                fontWeight="medium" 
+                position="sticky"
+                left={0}
+                right={0}
+                mx="auto"
+                display="block"
+                width="200px"
+                textAlign="center"
+                whiteSpace="nowrap"
+              >
+                {group.month} {group.year}
               </Text>
             </Box>
           ))}
         </HStack>
-      </HStack>
+
+        {/* Days row */}
+        <HStack spacing={0} width="100%">
+          {dateRange.map((date, index) => {
+            // Определяем, к какому месяцу относится день
+            const monthIndex = monthGroups.findIndex(group => 
+              index >= group.startIndex && 
+              index < group.startIndex + group.daysCount
+            );
+            
+            return (
+              <Box
+                key={index}
+                minW="240px"
+                p={2}
+                borderLeft="1px"
+                borderColor={borderColor}
+                textAlign="center"
+                bg={useColorModeValue(
+                  monthIndex % 2 === 0 ? 'gray.50' : 'white',
+                  monthIndex % 2 === 0 ? 'gray.700' : 'gray.800'
+                )}
+              >
+                <Text fontSize="md">{date.getDate()}</Text>
+                <Text fontSize="sm" color="gray.500">
+                  {date.toLocaleString('default', { weekday: 'short' })}
+                </Text>
+              </Box>
+            );
+          })}
+        </HStack>
+      </VStack>
 
       {/* Events Grid */}
       <Box position="relative" minH="200px">
         {/* Background Grid */}
         <HStack spacing={0} position="absolute" top={0} left={0} width="100%" height="100%">
-          {dateRange.map((_, index) => (
-            <Box
-              key={index}
-              minW="240px"
-              height="100%"
-              borderLeft="1px"
-              borderColor={borderColor}
-            />
-          ))}
+          {dateRange.map((_, index) => {
+            // Определяем, к какому месяцу относится колонка
+            const monthIndex = monthGroups.findIndex(group => 
+              index >= group.startIndex && 
+              index < group.startIndex + group.daysCount
+            );
+
+            return (
+              <Box
+                key={index}
+                minW="240px"
+                height="100%"
+                borderLeft="1px"
+                borderColor={borderColor}
+                bg={useColorModeValue(
+                  monthIndex % 2 === 0 ? 'gray.50' : 'white',
+                  monthIndex % 2 === 0 ? 'gray.700' : 'gray.800'
+                )}
+                opacity={0.3}
+              />
+            );
+          })}
         </HStack>
 
         {/* Events */}
@@ -142,10 +240,10 @@ export const GanttChart = () => {
           <Box
             key={event.id}
             position="absolute"
-            top={`${row * 50 + 5}px`}
+            top={`${row * 32 + 5}px`}
             left={0}
             width="100%"
-            height="40px"
+            height="55px"
           >
             {event.stages.map((stage) => {
               const startDate = new Date(stage.dates.start);
@@ -180,10 +278,10 @@ export const GanttChart = () => {
                       fontSize="sm"
                       fontWeight="bold"
                       color="white"
-                      noOfLines={1}
+                      noOfLines={2}
                       textShadow="0 0 2px rgba(0,0,0,0.5)"
                     >
-                      {event.title} ({stage.maxParticipants})
+                      {event.title} ({stage.maxParticipants || 0})
                     </Text>
                     <Text
                       fontSize="sm"
