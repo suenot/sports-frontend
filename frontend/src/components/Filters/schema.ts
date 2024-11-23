@@ -7,22 +7,22 @@ export const getFilterSchema = (t: TFunction): RJSFSchema => ({
   properties: {
     sportType: {
       type: 'string',
-      title: t('filters.sportType'),
+      title: t('filter.sportType'),
       default: '',
     },
     discipline: {
       type: 'string',
-      title: t('filters.discipline'),
+      title: t('filter.discipline'),
       default: '',
     },
     city: {
       type: 'string',
-      title: t('filters.city'),
+      title: t('filter.city'),
       default: '',
     },
     participantsRange: {
       type: 'array',
-      title: t('filters.participants'),
+      title: t('filter.participants'),
       items: {
         type: 'number',
         minimum: 0,
@@ -34,55 +34,55 @@ export const getFilterSchema = (t: TFunction): RJSFSchema => ({
     },
     gender: {
       type: 'string',
-      title: t('filters.gender'),
+      title: t('filter.gender'),
       enum: ['', 'male', 'female', 'mixed'],
       enumNames: [
-        t('filters.all'),
-        t('filters.genderMale'),
-        t('filters.genderFemale'),
-        t('filters.genderMixed')
+        t('filter.all'),
+        t('filter.genderMale'),
+        t('filter.genderFemale'),
+        t('filter.genderMixed')
       ],
       default: '',
     },
     ageGroup: {
       type: 'string',
-      title: t('filters.ageGroup'),
+      title: t('filter.ageGroup'),
       default: '',
     },
     eventType: {
       type: 'string',
-      title: t('filters.eventType'),
+      title: t('filter.eventType'),
       enum: ['', 'regional', 'national', 'international'],
       enumNames: [
-        t('filters.all'),
-        t('filters.eventTypeRegional'),
-        t('filters.eventTypeNational'),
-        t('filters.eventTypeInternational')
+        t('filter.all'),
+        t('filter.eventTypeRegional'),
+        t('filter.eventTypeNational'),
+        t('filter.eventTypeInternational')
       ],
       default: '',
     },
     dateRange: {
       type: 'object',
-      title: '',
+      title: t('filter.dateRange'),
       properties: {
         start: {
           type: 'string',
           format: 'date',
-          title: t('filters.dateRange.start'),
+          title: t('filter.dateRange.start'),
         },
         end: {
           type: 'string',
           format: 'date',
-          title: t('filters.dateRange.end'),
+          title: t('filter.dateRange.end'),
         },
       },
     },
     status: {
       type: 'string',
-      title: t('filters.status'),
+      title: t('filter.status'),
       enum: ['', 'draft', 'published', 'cancelled', 'completed'],
       enumNames: [
-        t('filters.all'),
+        t('filter.all'),
         t('status.draft'),
         t('status.published'),
         t('status.cancelled'),
@@ -135,22 +135,22 @@ export const getUpdatedSchema = (
       sportType: {
         ...baseSchema.properties.sportType,
         enum: ['', ...sportTypes],
-        enumNames: [t('filters.all'), ...sportTypes.map(type => t(`sports.${type}`))],
+        enumNames: [t('filter.all'), ...sportTypes.map(type => t(`sports.${type}`))],
       },
       discipline: {
         ...baseSchema.properties.discipline,
         enum: ['', ...disciplines],
-        enumNames: [t('filters.all'), ...disciplines.map(disc => t(`disciplines.${disc}`))],
+        enumNames: [t('filter.all'), ...disciplines.map(disc => t(`disciplines.${disc}`))],
       },
       city: {
         ...baseSchema.properties.city,
         enum: ['', ...cities],
-        enumNames: [t('filters.all'), ...cities],
+        enumNames: [t('filter.all'), ...cities],
       },
       ageGroup: {
         ...baseSchema.properties.ageGroup,
         enum: ['', ...ageGroups],
-        enumNames: [t('filters.all'), ...ageGroups],
+        enumNames: [t('filter.all'), ...ageGroups],
       },
     },
   };

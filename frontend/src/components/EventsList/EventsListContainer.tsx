@@ -1,21 +1,22 @@
 'use client';
 
-import React from 'react';
-import { Box, IconButton, useBreakpointValue, useDisclosure } from '@chakra-ui/react';
-import { SearchIcon, AddIcon } from '@chakra-ui/icons';
+import React, { useCallback, useState } from 'react';
+import { Box, IconButton, useBreakpointValue, useDisclosure, useToast } from '@chakra-ui/react';
+import { AddIcon } from '@chakra-ui/icons';
+import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 import { EventsListUI } from './EventsListUI';
 import { FiltersDrawer } from '../Filters/FiltersDrawer';
 import { EventDrawer } from './EventDrawer';
 import { EventFormDrawer } from './EventFormDrawer';
-import { Event } from './types';
-import { FiltersState } from '../Filters/EventsFilters';
+import { Event, ViewType } from './types';
 import { useEventData } from '../../hooks/useEventData';
 import { useQueryStore } from '@deep-foundation/store/query';
 
 interface EventsListContainerProps {
   events: Event[];
   isLoading: boolean;
-  role: 'user' | 'manager';
+  role?: string;
   onEventEdit?: (event: Event) => void;
   onEventDelete?: (eventId: string) => void;
   sportTypes: string[];
@@ -35,33 +36,28 @@ export const EventsListContainer: React.FC<EventsListContainerProps> = ({
   cities,
   ageGroups,
 }) => {
+  const router = useRouter();
+  const toast = useToast();
+  const { t } = useTranslation(['sections/events']);
   const { getEventById } = useEventData();
   
   // Используем хуки для управления состоянием
   const [isEventViewOpen, setIsEventViewOpen] = useQueryStore('events.view.open', false);
   const [isEventEditOpen, setIsEventEditOpen] = useQueryStore('events.edit.open', false);
   const [isEventAddOpen, setIsEventAddOpen] = useQueryStore('events.add.open', false);
-  const [currentEventId, setCurrentEventId] = useQueryStore<string | null>('events.current', null);
+  const [currentEventId, setCurrentEventId] = useQueryStore('events.current', null);
+  const [viewType, setViewType] = useState<ViewType>(ViewType.TABLE);
 
-  // Состояние для фильтров drawer
   const {
     isOpen: isFiltersOpen,
     onOpen: onFiltersOpen,
     onClose: onFiltersClose,
   } = useDisclosure();
 
-  // Определяем отступ для контента в зависимости от размера экрана
-  const contentPadding = useBreakpointValue({
-    base: '0',
-    md: '60px',
-  });
+  // Получаем текущее событие
+  const currentEvent = currentEventId ? getEventById(currentEventId) : null;
 
-  // Получаем текущее событие из списка по ID
-  const currentEvent = currentEventId 
-    ? getEventById(currentEventId)
-    : null;
-
-  // Обработчики для управления состоянием drawer'ов
+  // Функции для открытия/закрытия drawer'ов
   const openEventView = (eventId: string) => {
     setCurrentEventId(eventId);
     setIsEventViewOpen(true);
@@ -84,68 +80,61 @@ export const EventsListContainer: React.FC<EventsListContainerProps> = ({
   };
 
   // Обработчик клика по событию
-  const handleEventClick = (eventId: string) => {
+  const handleEventClick = useCallback((eventId: string) => {
     openEventView(eventId);
-  };
+  }, []);
 
   // Обработчик редактирования события
   const handleEventEdit = (event: Event) => {
     openEventEdit(event.id);
   };
 
-  // Обработчик добавления события
-  const handleEventAdd = (eventData: Partial<Event>) => {
-    console.log('Adding event:', eventData);
-    // Здесь будет логика добавления события
-    closeEvent();
+  // Обработчик удаления события
+  const handleEventDelete = (eventId: string) => {
+    onEventDelete?.(eventId);
   };
 
-  // Обработчик сохранения отредактированного события
-  const handleEventEditSubmit = (eventData: Partial<Event>) => {
+  // Обработчик сохранения события
+  const handleEventSave = (eventData: Partial<Event>) => {
     if (currentEvent) {
       onEventEdit?.({ ...currentEvent, ...eventData });
     }
     closeEvent();
   };
 
+  const handleViewTypeChange = useCallback((newViewType: ViewType) => {
+    setViewType(newViewType);
+  }, []);
+
   return (
     <Box position="relative">
       {/* Кнопки управления drawer'ами */}
       <Box
         position="fixed"
-        bottom={4}
-        right={4}
-        zIndex={2}
+        top="4"
+        right="4"
+        zIndex="sticky"
         display="flex"
-        gap={2}
+        gap="2"
       >
         {role === 'manager' && (
           <IconButton
-            aria-label="Добавить событие"
+            aria-label="Add event"
             icon={<AddIcon />}
             onClick={openEventAdd}
             colorScheme="green"
-            size="lg"
-            rounded="full"
-            shadow="lg"
+            variant="solid"
           />
         )}
-        <IconButton
-          aria-label="Открыть фильтры"
-          icon={<SearchIcon />}
-          onClick={onFiltersOpen}
-          colorScheme="blue"
-          size="lg"
-          rounded="full"
-          shadow="lg"
-        />
       </Box>
 
-      {/* Основной список событий */}
-      <Box 
-        pl={{ base: 0, md: contentPadding }} 
-        pr={{ base: 0, md: contentPadding }}
-        transition="padding 0.2s"
+      {/* Основной контент */}
+      <Box
+        maxWidth="container.xl"
+        mx="auto"
+        px={4}
+        pt={16}
+        pb={4}
       >
         <EventsListUI
           events={events}
@@ -153,7 +142,10 @@ export const EventsListContainer: React.FC<EventsListContainerProps> = ({
           role={role}
           onEventClick={handleEventClick}
           onEventEdit={handleEventEdit}
-          onEventDelete={onEventDelete}
+          onEventDelete={handleEventDelete}
+          viewType={viewType}
+          onViewTypeChange={handleViewTypeChange}
+          onFiltersClick={onFiltersOpen}
         />
       </Box>
 
@@ -167,28 +159,28 @@ export const EventsListContainer: React.FC<EventsListContainerProps> = ({
         ageGroups={ageGroups}
       />
 
-      {/* Drawer с деталями события */}
-      <EventDrawer
-        isOpen={isEventViewOpen}
-        onClose={closeEvent}
-        event={currentEvent}
-      />
+      {/* Drawer для просмотра события */}
+      {currentEvent && (
+        <EventDrawer
+          event={currentEvent}
+          isOpen={isEventViewOpen}
+          onClose={closeEvent}
+          onEdit={handleEventEdit}
+          onDelete={handleEventDelete}
+          role={role}
+        />
+      )}
 
-      {/* Drawer для добавления события */}
+      {/* Drawer для редактирования/добавления события */}
       <EventFormDrawer
-        isOpen={isEventAddOpen}
-        onClose={closeEvent}
-        onSubmit={handleEventAdd}
-        isEdit={false}
-      />
-
-      {/* Drawer для редактирования события */}
-      <EventFormDrawer
-        isOpen={isEventEditOpen}
-        onClose={closeEvent}
         event={currentEvent}
-        onSubmit={handleEventEditSubmit}
-        isEdit={true}
+        isOpen={isEventEditOpen || isEventAddOpen}
+        onClose={closeEvent}
+        onSave={handleEventSave}
+        sportTypes={sportTypes}
+        disciplines={disciplines}
+        cities={cities}
+        ageGroups={ageGroups}
       />
     </Box>
   );

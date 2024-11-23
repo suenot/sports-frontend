@@ -1,223 +1,66 @@
 import React from 'react';
 import {
   Box,
-  Accordion,
-  AccordionItem,
-  AccordionPanel,
+  Text,
+  Image,
   Badge,
+  HStack,
   VStack,
   Spinner,
   Center,
-  Image,
-  HStack,
-  Text,
-  Stack,
   IconButton,
   Tooltip,
   Flex,
   useColorModeValue,
   Heading,
+  ButtonGroup,
+  Button,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  Stack,
 } from '@chakra-ui/react';
-import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
+import { 
+  CalendarIcon, 
+  EditIcon, 
+  DeleteIcon,
+  TimeIcon,
+  HamburgerIcon,
+} from '@chakra-ui/icons';
+import { BsGrid3X3Gap } from 'react-icons/bs';
+import { FaMapMarkedAlt, FaFilter } from 'react-icons/fa';
+import { MdLocationOn } from 'react-icons/md';
 import { useTranslation } from 'next-i18next';
-import { Event, Stage } from './types';
+import { Event, ViewType } from './types';
+import { GanttChart } from '../GanttChart';
 
 interface EventsListUIProps {
   events: Event[];
   onEventClick: (eventId: string) => void;
   isLoading: boolean;
-  role: 'user' | 'manager';
+  role?: string;
   onEventEdit?: (event: Event) => void;
   onEventDelete?: (eventId: string) => void;
+  viewType: ViewType;
+  onViewTypeChange: (viewType: ViewType) => void;
+  onFiltersClick?: () => void;
 }
 
 const getStatusColor = (status: Event['status']) => {
   switch (status) {
     case 'published':
-      return 'blue';
+      return 'green';
     case 'draft':
       return 'gray';
-    case 'cancelled':
-      return 'red';
-    case 'completed':
-      return 'green';
-    default:
-      return 'gray';
-  }
-};
-
-const getStageStatusColor = (status: Stage['status']) => {
-  switch (status) {
-    case 'upcoming':
-      return 'blue';
-    case 'ongoing':
-      return 'green';
-    case 'completed':
-      return 'gray';
-    case 'cancelled':
+    case 'archived':
       return 'red';
     default:
       return 'gray';
   }
-};
-
-const formatDate = (date: string, locale: string) => {
-  return new Intl.DateTimeFormat(locale, {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit'
-  }).format(new Date(date));
-};
-
-const StagesList: React.FC<{ stages: Stage[] }> = ({ stages }) => {
-  const { t, i18n } = useTranslation(['sections/events']);
-  const stageBg = useColorModeValue('gray.50', 'gray.700');
-
-  return (
-    <Stack spacing={3}>
-      {stages.map((stage) => (
-        <Box key={stage.id} p={3} bg={stageBg} borderRadius="md">
-          <HStack spacing={2} mb={2}>
-            <Badge 
-              colorScheme={getStageStatusColor(stage.status)}
-              px={2}
-              py={0.5}
-              borderRadius="full"
-            >
-              {t(`stage.status.${stage.status}`)}
-            </Badge>
-            <Text fontWeight="medium">
-              {stage.title}
-            </Text>
-          </HStack>
-          <Text fontSize="sm" color="gray.600">
-            {formatDate(stage.dates.start, i18n.language)}
-            {stage.dates.end !== stage.dates.start && 
-              ` - ${formatDate(stage.dates.end, i18n.language)}`}
-          </Text>
-          {stage.description && (
-            <Text fontSize="sm" mt={2}>
-              {stage.description}
-            </Text>
-          )}
-        </Box>
-      ))}
-    </Stack>
-  );
-};
-
-const EventItem: React.FC<{
-  event: Event;
-  onClick: () => void;
-  role: 'user' | 'manager';
-  onEdit?: () => void;
-  onDelete?: () => void;
-}> = ({ event, onClick, role, onEdit, onDelete }) => {
-  const { t } = useTranslation(['sections/events']);
-  const itemBg = useColorModeValue('white', 'gray.800');
-  const hoverBg = useColorModeValue('gray.50', 'gray.700');
-
-  return (
-    <AccordionItem 
-      border="1px" 
-      borderColor="gray.200" 
-      borderRadius="lg" 
-      mb={2}
-      bg={itemBg}
-    >
-      <Flex>
-        <Box 
-          flex="1"
-          p={4}
-          _hover={{ bg: hoverBg }}
-          cursor="pointer"
-          onClick={(e) => {
-            e.stopPropagation();
-            onClick();
-          }}
-        >
-          <HStack flex="1" spacing={4}>
-            {event.media.thumbnails[0] && (
-              <Image
-                src={event.media.thumbnails[0]}
-                alt={event.title}
-                boxSize="50px"
-                objectFit="cover"
-                borderRadius="md"
-                fallbackSrc="https://via.placeholder.com/50"
-              />
-            )}
-            <Box flex="1" textAlign="left">
-              <Text fontWeight="bold">
-                {event.title}
-              </Text>
-              <Text fontSize="sm" color="gray.600">{event.shortDescription}</Text>
-            </Box>
-            <Badge 
-              colorScheme={getStatusColor(event.status)}
-              px={3}
-              py={1}
-              borderRadius="full"
-              textTransform="uppercase"
-              fontSize="xs"
-              fontWeight="bold"
-            >
-              {t(`status.${event.status}`)}
-            </Badge>
-          </HStack>
-        </Box>
-        
-        {role === 'manager' && (
-          <Flex p={2} alignItems="center">
-            <Tooltip label={t('actions.editEvent')}>
-              <IconButton
-                aria-label={t('actions.editEvent')}
-                icon={<EditIcon />}
-                colorScheme="yellow"
-                size="sm"
-                mr={2}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onEdit?.();
-                }}
-              />
-            </Tooltip>
-            <Tooltip label={t('actions.deleteEvent')}>
-              <IconButton
-                aria-label={t('actions.deleteEvent')}
-                icon={<DeleteIcon />}
-                colorScheme="red"
-                size="sm"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onDelete?.();
-                }}
-              />
-            </Tooltip>
-          </Flex>
-        )}
-      </Flex>
-
-      <AccordionPanel pb={4}>
-        <Box>
-          <HStack spacing={4} mb={4}>
-            <Box>
-              <Text fontSize="sm" color="gray.600">{t('location')}</Text>
-              <Text>{event.location.city}</Text>
-              <Text fontSize="sm">{event.location.venue}</Text>
-            </Box>
-            <Box>
-              <Text fontSize="sm" color="gray.600">{t('sportType')}</Text>
-              <Text>{t(`sports.${event.sportType}`)}</Text>
-              <Text fontSize="sm">{t(`disciplines.${event.discipline}`)}</Text>
-            </Box>
-          </HStack>
-          <Text fontSize="sm" color="gray.600" mb={2}>{t('stages')}:</Text>
-          <StagesList stages={event.stages} />
-        </Box>
-      </AccordionPanel>
-    </AccordionItem>
-  );
 };
 
 export const EventsListUI: React.FC<EventsListUIProps> = ({
@@ -227,14 +70,17 @@ export const EventsListUI: React.FC<EventsListUIProps> = ({
   role,
   onEventEdit,
   onEventDelete,
+  viewType,
+  onViewTypeChange,
+  onFiltersClick,
 }) => {
   const { t } = useTranslation(['sections/events']);
-  const containerBg = useColorModeValue('white', 'gray.800');
+  const bgColor = useColorModeValue('white', 'gray.800');
 
   if (isLoading) {
     return (
-      <Center h="calc(100vh - 64px)">
-        <Spinner size="xl" color="blue.500" thickness="4px" />
+      <Center h="200px">
+        <Spinner />
       </Center>
     );
   }
@@ -247,42 +93,219 @@ export const EventsListUI: React.FC<EventsListUIProps> = ({
     );
   }
 
-  return (
-    <Box 
-      w="100%" 
-      h="calc(100vh - 64px)" 
-      p={4} 
-      position="relative"
-      overflow="hidden"
+  const renderViewTypeButtons = () => (
+    <Flex justify="space-between" align="center" mb={4}>
+      <Heading size="lg">{t('eventsList')}</Heading>
+      <HStack spacing={4}>
+        <ButtonGroup size="sm" isAttached variant="outline">
+          <Button
+            onClick={() => onViewTypeChange(ViewType.LIST)}
+            colorScheme={viewType === ViewType.LIST ? 'blue' : undefined}
+          >
+            <HamburgerIcon mr={2} /> {t('list')}
+          </Button>
+          <Button
+            onClick={() => onViewTypeChange(ViewType.GRID)}
+            colorScheme={viewType === ViewType.GRID ? 'blue' : undefined}
+          >
+            <Box as={BsGrid3X3Gap} mr={2} /> {t('grid')}
+          </Button>
+          <Button
+            onClick={() => onViewTypeChange(ViewType.CALENDAR)}
+            colorScheme={viewType === ViewType.CALENDAR ? 'blue' : undefined}
+          >
+            <CalendarIcon mr={2} /> {t('calendar')}
+          </Button>
+          <Button
+            onClick={() => onViewTypeChange(ViewType.MAP)}
+            colorScheme={viewType === ViewType.MAP ? 'blue' : undefined}
+          >
+            <Box as={FaMapMarkedAlt} mr={2} /> {t('map')}
+          </Button>
+        </ButtonGroup>
+        <Tooltip label={t('filter.title')}>
+          <IconButton
+            aria-label={t('filter.title')}
+            icon={<Box as={FaFilter} />}
+            variant="outline"
+            size="sm"
+            onClick={onFiltersClick}
+          />
+        </Tooltip>
+      </HStack>
+    </Flex>
+  );
+
+  const renderDefaultView = () => (
+    <VStack spacing={4} align="stretch">
+      {events.map((event) => (
+        <Box
+          key={event.id}
+          p={4}
+          borderWidth="1px"
+          borderRadius="md"
+          onClick={() => onEventClick(event.id)}
+          cursor="pointer"
+          _hover={{ bg: useColorModeValue('gray.50', 'gray.700') }}
+        >
+          <Flex justify="space-between" align="center">
+            <Box flex="1">
+              <HStack>
+                {event.media?.thumbnails?.[0] && (
+                  <Image
+                    boxSize="40px"
+                    objectFit="cover"
+                    src={event.media.thumbnails[0]}
+                    alt={event.title}
+                    borderRadius="md"
+                  />
+                )}
+                <Box>
+                  <Text fontWeight="bold" fontSize="lg">
+                    {event.title}
+                  </Text>
+                  <HStack spacing={2} mt={1}>
+                    <Badge colorScheme={getStatusColor(event.status)}>
+                      {t(event.status)}
+                    </Badge>
+                    {event.stages?.length > 0 && (
+                      <Badge colorScheme="purple">
+                        {event.stages.length} {t('stages')}
+                      </Badge>
+                    )}
+                  </HStack>
+                </Box>
+              </HStack>
+              {event.description && (
+                <Text color="gray.500" mt={2} noOfLines={2}>
+                  {event.description}
+                </Text>
+              )}
+              <HStack mt={2} spacing={4} color="gray.600">
+                {event.dates?.start && (
+                  <HStack fontSize="sm">
+                    <CalendarIcon />
+                    <Text>{new Date(event.dates.start).toLocaleDateString()}</Text>
+                  </HStack>
+                )}
+                {event.location?.city && (
+                  <HStack fontSize="sm">
+                    <Box as={MdLocationOn} /> 
+                    <Text>{event.location.city}</Text>
+                  </HStack>
+                )}
+              </HStack>
+            </Box>
+            {role === 'admin' && (
+              <HStack>
+                <Tooltip label={t('edit')}>
+                  <IconButton
+                    icon={<EditIcon />}
+                    aria-label={t('edit')}
+                    size="sm"
+                    variant="ghost"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onEventEdit?.(event);
+                    }}
+                  />
+                </Tooltip>
+                <Tooltip label={t('delete')}>
+                  <IconButton
+                    icon={<DeleteIcon />}
+                    aria-label={t('delete')}
+                    size="sm"
+                    variant="ghost"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onEventDelete?.(event.id);
+                    }}
+                  />
+                </Tooltip>
+              </HStack>
+            )}
+          </Flex>
+        </Box>
+      ))}
+    </VStack>
+  );
+
+  const renderGridView = () => (
+    <Box
+      display="grid"
+      gridTemplateColumns="repeat(auto-fill, minmax(300px, 1fr))"
+      gap={6}
+      w="full"
     >
-      <Box 
-        w="100%" 
-        h="100%"
-        bg={containerBg}
-        borderRadius="lg" 
-        shadow="sm" 
-        overflowY="auto"
-        position="absolute"
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-        p={4}
-      >
-        <Heading size="lg" mb={4}>{t('title')}</Heading>
-        <Accordion allowMultiple defaultIndex={[]}>
-          {events.map((event) => (
-            <EventItem
-              key={event.id}
-              event={event}
-              onClick={() => onEventClick(event.id)}
-              role={role}
-              onEdit={() => onEventEdit?.(event)}
-              onDelete={() => onEventDelete?.(event.id)}
+      {events.map((event) => (
+        <Box
+          key={event.id}
+          p={4}
+          borderWidth="1px"
+          borderRadius="md"
+          onClick={() => onEventClick(event.id)}
+          cursor="pointer"
+          _hover={{ bg: useColorModeValue('gray.50', 'gray.700') }}
+        >
+          {event.media?.thumbnails?.[0] && (
+            <Image
+              w="full"
+              h="200px"
+              objectFit="cover"
+              src={event.media.thumbnails[0]}
+              alt={event.title}
+              borderRadius="md"
+              mb={4}
             />
-          ))}
-        </Accordion>
-      </Box>
+          )}
+          <Box>
+            <Text fontWeight="bold" fontSize="lg">
+              {event.title}
+            </Text>
+            <HStack spacing={2} mt={1}>
+              <Badge colorScheme={getStatusColor(event.status)}>
+                {t(event.status)}
+              </Badge>
+              {event.stages?.length > 0 && (
+                <Badge colorScheme="purple">
+                  {event.stages.length} {t('stages')}
+                </Badge>
+              )}
+            </HStack>
+            {event.description && (
+              <Text color="gray.500" mt={2} noOfLines={2}>
+                {event.description}
+              </Text>
+            )}
+          </Box>
+        </Box>
+      ))}
+    </Box>
+  );
+
+  const renderCalendarView = () => (
+    <Box 
+      position="absolute"
+      top="0"
+      left="0"
+      right="0"
+      bottom="0"
+      mt="60px"
+    >
+      <GanttChart events={events} />
+    </Box>
+  );
+
+  return (
+    <Box position="relative" h="100vh">
+      {renderViewTypeButtons()}
+      {viewType === ViewType.GRID 
+        ? renderGridView() 
+        : viewType === ViewType.CALENDAR 
+        ? renderCalendarView()
+        : viewType === ViewType.MAP
+        ? <Center h="400px"><Text>Map view coming soon...</Text></Center>
+        : renderDefaultView()}
     </Box>
   );
 };

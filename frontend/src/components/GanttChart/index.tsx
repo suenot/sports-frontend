@@ -1,9 +1,13 @@
 import { Box, Text, HStack, VStack, useColorModeValue } from '@chakra-ui/react';
-import { mockEvents } from '../EventsList/data';
 import { useMemo } from 'react';
+import { Event } from '../EventsList/types';
+
+interface GanttChartProps {
+  events: Event[];
+}
 
 interface PositionedEvent {
-  event: typeof mockEvents[0];
+  event: Event;
   row: number;
 }
 
@@ -14,24 +18,24 @@ interface MonthGroup {
   daysCount: number;
 }
 
-export const GanttChart = () => {
-  const events = useMemo(() => {
+export const GanttChart: React.FC<GanttChartProps> = ({ events }) => {
+  const sortedEvents = useMemo(() => {
     // Сортируем события по максимальному количеству участников среди всех этапов
-    return mockEvents
+    return events
       .slice(0, 20)
       .map(event => ({
         ...event,
-        maxParticipants: Math.max(...event.stages.map(stage => stage.maxParticipants || 0))
+        maxParticipants: Math.max(...(event.stages || []).map(stage => stage.maxParticipants || 0))
       }))
       .sort((a, b) => b.maxParticipants - a.maxParticipants);
-  }, []);
+  }, [events]);
 
   const bgColor = useColorModeValue('white', 'gray.800');
   const borderColor = useColorModeValue('gray.200', 'gray.600');
 
   // Находим минимальную и максимальную даты для определения временного диапазона
   const timeRange = useMemo(() => {
-    const dates = events.flatMap(event => 
+    const dates = sortedEvents.flatMap(event => 
       event.stages.map(stage => [
         new Date(stage.dates.start),
         new Date(stage.dates.end)
@@ -42,7 +46,7 @@ export const GanttChart = () => {
       start: new Date(Math.min(...dates.map(d => d.getTime()))),
       end: new Date(Math.max(...dates.map(d => d.getTime())))
     };
-  }, [events]);
+  }, [sortedEvents]);
 
   // Создаем массив дат для шкалы времени
   const dateRange = useMemo(() => {
@@ -92,7 +96,7 @@ export const GanttChart = () => {
     const result: PositionedEvent[] = [];
     const rows: { end: number }[][] = [[]]; // массив строк, каждая строка содержит конечные даты событий
 
-    events.forEach(event => {
+    sortedEvents.forEach(event => {
       // Сортируем этапы по количеству участников
       const sortedStages = [...event.stages].sort((a, b) => (b.maxParticipants || 0) - (a.maxParticipants || 0));
       const eventStart = Math.min(...sortedStages.map(stage => new Date(stage.dates.start).getTime()));
@@ -129,16 +133,17 @@ export const GanttChart = () => {
     });
 
     return result;
-  }, [events]);
+  }, [sortedEvents]);
 
   return (
     <Box
       bg={bgColor}
       borderRadius="lg"
-      border="1px"
+      borderWidth="1px"
       borderColor={borderColor}
       p={4}
-      overflowX="auto"
+      h="100%"
+      overflow="auto"
     >
       {/* Header with months and dates */}
       <VStack spacing={0} mb={4} position="sticky" top={0} bg={bgColor} zIndex={1}>

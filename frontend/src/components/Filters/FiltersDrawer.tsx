@@ -29,7 +29,7 @@ export const FiltersDrawer: React.FC<FiltersDrawerProps> = ({
     <AppDrawer
       isOpen={isOpen}
       onClose={onClose}
-      title={t('filters.title')} // Используем перевод для заголовка
+      title={t('filter.title')} 
       placement="left"
     >
       <Box 

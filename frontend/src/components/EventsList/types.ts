@@ -1,7 +1,7 @@
 export interface Stage {
   id: string;
   title: string;
-  type: 'registration' | 'qualification' | 'semifinal' | 'final' | 'other';
+  type: string;
   description?: string;
   dates: {
     start: string;
@@ -9,14 +9,14 @@ export interface Stage {
   };
   location?: {
     city: string;
-    venue: string;
-    address: string;
+    venue?: string;
+    address?: string;
     coordinates?: {
       lat: number;
       lng: number;
     };
   };
-  status: 'upcoming' | 'ongoing' | 'completed' | 'cancelled';
+  status: 'draft' | 'published' | 'archived';
   maxParticipants?: number;
   currentParticipants?: number;
   requirements?: string[];
@@ -35,13 +35,14 @@ export interface Stage {
 export interface Event {
   id: string;
   title: string;
-  description: string;
-  shortDescription: string;
+  description?: string;
+  shortDescription?: string;
   media: {
-    banners: string[];
+    banners?: string[];
     thumbnails: string[];
-    gallery: string[];
-    videos: string[];
+    gallery?: string[];
+    images?: string[];
+    videos?: string[];
   };
   links: {
     website?: string;
@@ -55,20 +56,20 @@ export interface Event {
   stages: Stage[];
   location: {
     city: string;
-    venue: string;
-    address: string;
-    coordinates: {
+    venue?: string;
+    address?: string;
+    coordinates?: {
       lat: number;
       lng: number;
     };
   };
   sportType: string;
   discipline: string;
-  eventType: 'regional' | 'national' | 'international';
-  ageGroup: string;
-  gender: 'male' | 'female' | 'mixed';
-  participantsCount: number;
-  status: 'draft' | 'published' | 'cancelled' | 'completed';
+  eventType?: 'regional' | 'national' | 'international';
+  ageGroup?: string;
+  gender?: 'male' | 'female' | 'mixed';
+  participantsCount?: number;
+  status: 'draft' | 'published' | 'archived';
   price?: {
     amount: number;
     currency: string;
@@ -88,8 +89,19 @@ export interface Event {
     description?: string;
     keywords?: string[];
   };
+  dates: {
+    start: string;
+    end: string;
+  };
 }
 
 export type EventStatus = Event['status'];
 export type StageStatus = Stage['status'];
 export type StageType = Stage['type'];
+
+export enum ViewType {
+  LIST = 'LIST',
+  GRID = 'GRID',
+  CALENDAR = 'CALENDAR',
+  MAP = 'MAP'
+}

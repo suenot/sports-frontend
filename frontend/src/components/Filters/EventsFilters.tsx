@@ -91,7 +91,7 @@ export const EventsFilters: React.FC<EventsFiltersProps> = ({
     <Box>
       <HStack justify="space-between" align="center" mb={4}>
         <Text fontSize="md" fontWeight="medium">
-          {t('filters.settings')}
+          {t('filter.title')}
         </Text>
         <Button
           size="sm"
@@ -99,7 +99,7 @@ export const EventsFilters: React.FC<EventsFiltersProps> = ({
           colorScheme="blue"
           onClick={handleReset}
         >
-          {t('filters.reset')}
+          {t('filter.reset')}
         </Button>
       </HStack>
 
