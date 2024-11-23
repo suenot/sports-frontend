@@ -10,6 +10,10 @@
   "grid": "Сетка",
   "calendar": "Календарь",
   "map": "Карта",
+  "listView": "В виде списка",
+  "gridView": "В виде сетки",
+  "calendarView": "В виде календаря",
+  "mapView": "На карте",
   "filters": "Фильтры",
   "filter": {
     "title": "Фильтры",
@@ -24,6 +28,8 @@
     "ageGroup": "Возрастная группа",
     "eventType": "Тип мероприятия",
     "dateRange": "Период проведения",
+    "dateRange.start": "Начало",
+    "dateRange.end": "Окончание",
     "status": "Статус",
     "all": "Все",
     "genderMale": "Мужской",
@@ -118,13 +124,13 @@
     "dateRange": {
       "title": "Период проведения",
       "start": "Начало",
-      "end": "Конец"
+      "end": "Окончание"
     },
     "status": "Статус",
     "date": {
       "label": "Дата",
       "start": "Начало",
-      "end": "Конец"
+      "end": "Окончание"
     },
     "location": {
       "label": "Место проведения",
@@ -168,7 +174,6 @@
       "addressPlaceholder": "Введите адрес"
     }
   },
-  "calendarView": "Календарь",
   "calendar": {
     "months": {
       "January": "Январь",

@@ -140,14 +140,14 @@ export const GanttChart: React.FC<GanttChartProps> = ({ events }) => {
   }, [sortedEvents]);
 
   return (
-    <Box
-      bg={bgColor}
-      borderRadius="lg"
-      borderWidth="1px"
+    <Box 
+      h="100%" 
+      w="100%" 
+      overflow="auto" 
+      bg={bgColor} 
+      borderRadius="md" 
+      borderWidth="1px" 
       borderColor={borderColor}
-      p={4}
-      h="100%"
-      overflow="auto"
     >
       {/* Header with months and dates */}
       <VStack spacing={0} mb={4} position="sticky" top={0} bg={bgColor} zIndex={1}>

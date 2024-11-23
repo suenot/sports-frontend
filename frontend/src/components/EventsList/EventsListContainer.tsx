@@ -46,7 +46,7 @@ export const EventsListContainer: React.FC<EventsListContainerProps> = ({
   const [isEventEditOpen, setIsEventEditOpen] = useQueryStore('events.edit.open', false);
   const [isEventAddOpen, setIsEventAddOpen] = useQueryStore('events.add.open', false);
   const [currentEventId, setCurrentEventId] = useQueryStore('events.current', null);
-  const [viewType, setViewType] = useState<ViewType>(ViewType.TABLE);
+  const [viewType, setViewType] = useState<ViewType>('list');
 
   const {
     isOpen: isFiltersOpen,
@@ -133,7 +133,7 @@ export const EventsListContainer: React.FC<EventsListContainerProps> = ({
         maxWidth="container.xl"
         mx="auto"
         px={4}
-        pt={16}
+        pt={8}
         pb={4}
       >
         <EventsListUI

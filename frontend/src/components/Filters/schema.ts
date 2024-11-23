@@ -63,7 +63,7 @@ export const getFilterSchema = (t: TFunction): RJSFSchema => ({
     },
     dateRange: {
       type: 'object',
-      title: t('filter.dateRange'),
+      title: '',
       properties: {
         start: {
           type: 'string',

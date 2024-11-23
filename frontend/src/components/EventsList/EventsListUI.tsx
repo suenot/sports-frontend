@@ -37,6 +37,7 @@ import { MdLocationOn } from 'react-icons/md';
 import { useTranslation } from 'next-i18next';
 import { Event, ViewType } from './types';
 import { GanttChart } from '../GanttChart';
+import { EventsMap } from '../EventsMap';
 
 interface EventsListUIProps {
   events: Event[];
@@ -92,49 +93,6 @@ export const EventsListUI: React.FC<EventsListUIProps> = ({
       </Center>
     );
   }
-
-  const renderViewTypeButtons = () => (
-    <Flex justify="space-between" align="center" mb={4}>
-      <Heading size="lg">{t('eventsList')}</Heading>
-      <HStack spacing={4}>
-        <ButtonGroup size="sm" isAttached variant="outline">
-          <Button
-            onClick={() => onViewTypeChange(ViewType.LIST)}
-            colorScheme={viewType === ViewType.LIST ? 'blue' : undefined}
-          >
-            <HamburgerIcon mr={2} /> {t('list')}
-          </Button>
-          <Button
-            onClick={() => onViewTypeChange(ViewType.GRID)}
-            colorScheme={viewType === ViewType.GRID ? 'blue' : undefined}
-          >
-            <Box as={BsGrid3X3Gap} mr={2} /> {t('grid')}
-          </Button>
-          <Button
-            onClick={() => onViewTypeChange(ViewType.CALENDAR)}
-            colorScheme={viewType === ViewType.CALENDAR ? 'blue' : undefined}
-          >
-            <CalendarIcon mr={2} /> {t('calendarView')}
-          </Button>
-          <Button
-            onClick={() => onViewTypeChange(ViewType.MAP)}
-            colorScheme={viewType === ViewType.MAP ? 'blue' : undefined}
-          >
-            <Box as={FaMapMarkedAlt} mr={2} /> {t('map')}
-          </Button>
-        </ButtonGroup>
-        <Tooltip label={t('filter.title')}>
-          <IconButton
-            aria-label={t('filter.title')}
-            icon={<Box as={FaFilter} />}
-            variant="outline"
-            size="sm"
-            onClick={onFiltersClick}
-          />
-        </Tooltip>
-      </HStack>
-    </Flex>
-  );
 
   const renderDefaultView = () => (
     <VStack spacing={4} align="stretch">
@@ -296,16 +254,146 @@ export const EventsListUI: React.FC<EventsListUIProps> = ({
     </Box>
   );
 
+  const renderMapView = () => (
+    <EventsMap events={events} onEventClick={onEventClick} />
+  );
+
+  const renderViewTypeButtons = () => (
+    <Flex justify="space-between" align="center" mb={4}>
+      <Heading size="lg">{t('eventsList')}</Heading>
+      <HStack spacing={4}>
+        {onFiltersClick && (
+          <IconButton
+            aria-label={t('filter.title')}
+            icon={<FaFilter />}
+            onClick={onFiltersClick}
+            size="sm"
+          />
+        )}
+        <ButtonGroup size="sm" isAttached variant="outline">
+          <Tooltip label={t('listView')}>
+            <IconButton
+              aria-label={t('listView')}
+              icon={<HamburgerIcon />}
+              isActive={viewType === 'list'}
+              onClick={() => onViewTypeChange('list')}
+            />
+          </Tooltip>
+          <Tooltip label={t('gridView')}>
+            <IconButton
+              aria-label={t('gridView')}
+              icon={<BsGrid3X3Gap />}
+              isActive={viewType === 'grid'}
+              onClick={() => onViewTypeChange('grid')}
+            />
+          </Tooltip>
+          <Tooltip label={t('calendarView')}>
+            <IconButton
+              aria-label={t('calendarView')}
+              icon={<CalendarIcon />}
+              isActive={viewType === 'calendar'}
+              onClick={() => onViewTypeChange('calendar')}
+            />
+          </Tooltip>
+          <Tooltip label={t('mapView')}>
+            <IconButton
+              aria-label={t('mapView')}
+              icon={<FaMapMarkedAlt />}
+              isActive={viewType === 'map'}
+              onClick={() => onViewTypeChange('map')}
+            />
+          </Tooltip>
+        </ButtonGroup>
+      </HStack>
+    </Flex>
+  );
+
+  const renderContent = () => {
+    switch (viewType) {
+      case 'calendar':
+        return (
+          <Box h="calc(100vh - 120px)">
+            <GanttChart events={events} />
+          </Box>
+        );
+      case 'map':
+        return (
+          <Box 
+            h="calc(100vh - 120px)" 
+            position="relative"
+            sx={{
+              '& > div': {
+                height: '100% !important'
+              }
+            }}
+          >
+            <EventsMap events={events} onEventClick={onEventClick} />
+          </Box>
+        );
+      case 'grid':
+        return renderGridView();
+      case 'list':
+      default:
+        return renderDefaultView();
+    }
+  };
+
   return (
-    <Box position="relative" h="100vh">
-      {renderViewTypeButtons()}
-      {viewType === ViewType.GRID 
-        ? renderGridView() 
-        : viewType === ViewType.CALENDAR 
-        ? renderCalendarView()
-        : viewType === ViewType.MAP
-        ? <Center h="400px"><Text>Map view coming soon...</Text></Center>
-        : renderDefaultView()}
+    <Box 
+      h="100%" 
+      display="flex" 
+      flexDirection="column"
+    >
+      <Flex justify="space-between" align="center" mb={4}>
+        <Heading size="lg">{t('eventsList')}</Heading>
+        <HStack spacing={4}>
+          {onFiltersClick && (
+            <IconButton
+              aria-label={t('filter.title')}
+              icon={<FaFilter />}
+              onClick={onFiltersClick}
+              size="sm"
+            />
+          )}
+          <ButtonGroup size="sm" isAttached variant="outline">
+            <Tooltip label={t('listView')}>
+              <IconButton
+                aria-label={t('listView')}
+                icon={<HamburgerIcon />}
+                isActive={viewType === 'list'}
+                onClick={() => onViewTypeChange('list')}
+              />
+            </Tooltip>
+            <Tooltip label={t('gridView')}>
+              <IconButton
+                aria-label={t('gridView')}
+                icon={<BsGrid3X3Gap />}
+                isActive={viewType === 'grid'}
+                onClick={() => onViewTypeChange('grid')}
+              />
+            </Tooltip>
+            <Tooltip label={t('calendarView')}>
+              <IconButton
+                aria-label={t('calendarView')}
+                icon={<CalendarIcon />}
+                isActive={viewType === 'calendar'}
+                onClick={() => onViewTypeChange('calendar')}
+              />
+            </Tooltip>
+            <Tooltip label={t('mapView')}>
+              <IconButton
+                aria-label={t('mapView')}
+                icon={<FaMapMarkedAlt />}
+                isActive={viewType === 'map'}
+                onClick={() => onViewTypeChange('map')}
+              />
+            </Tooltip>
+          </ButtonGroup>
+        </HStack>
+      </Flex>
+      <Box flex="1">
+        {renderContent()}
+      </Box>
     </Box>
   );
 };
