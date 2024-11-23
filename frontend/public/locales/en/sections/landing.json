@@ -1,7 +1,7 @@
 {
   "hero": {
-    "title": "Sports Events Made Simple",
-    "description": "Platform for organizing and participating in sports events",
+    "title": "Sports Competition Calendar",
+    "description": "A unified platform for tracking sports competitions worldwide",
     "cta": "Get Started"
   },
   "stats": {
@@ -20,61 +20,146 @@
   },
   "problems": {
     "title": "Problems We Solve",
-    "description": "Sports event organization can be complex. We make it simple.",
+    "description": "Key challenges we address",
     "features": {
       "sync": {
-        "title": "Synchronization",
-        "description": "Automatic synchronization of schedules and calendars"
+        "title": "Data Synchronization",
+        "description": "Automatic synchronization of competition information from various sources"
       },
       "search": {
-        "title": "Search",
-        "description": "Smart search for events and participants"
+        "title": "Smart Search",
+        "description": "Quick search for competitions using various parameters"
       },
       "notifications": {
         "title": "Notifications",
-        "description": "Timely reminders about important events"
+        "description": "Timely alerts about important events and changes"
       }
     }
   },
-  "advantages": {
-    "title": "Our Advantages",
+  "competitions": {
+    "title": "Find Competitions",
+    "features": {
+      "countries": {
+        "title": "By Countries",
+        "description": "Filter competitions by host countries"
+      },
+      "disciplines": {
+        "title": "By Disciplines",
+        "description": "Choose your preferred sports disciplines"
+      },
+      "dates": {
+        "title": "By Dates",
+        "description": "Search for competitions within specific time periods"
+      }
+    }
+  },
+  "team": {
+    "title": "Our Team",
+    "roles": {
+      "teamLead": "Team Lead",
+      "ml": "ML Engineer",
+      "fullstack": "Fullstack Developer"
+    }
+  },
+  "architecture": {
+    "title": "Solution Architecture",
+    "description": "Modern scalable architecture using cutting-edge technologies"
+  },
+  "screencast": {
+    "title": "Product Demo"
+  },
+  "features": {
+    "title": "Key Features",
     "items": [
-      "💻 Simple and intuitive interface",
-      "🤖 Convenient management via Telegram bot",
-      "🗺️ Interactive OpenStreetMap",
-      "📊 Gantt chart for planning",
-      "🔔 Notification system via Telegram and Email"
+      "Automatic competition data collection",
+      "Smart filtering and search system",
+      "Interactive competition map",
+      "Personalized notifications",
+      "Calendar integration",
+      "Analytics and statistics"
+    ]
+  },
+  "useCases": {
+    "title": "Use Cases",
+    "items": [
+      "Planning competition participation",
+      "Tracking competitions by specific disciplines",
+      "Analyzing competition geography",
+      "Team and athlete coordination",
+      "Schedule change monitoring"
+    ]
+  },
+  "roadmap": {
+    "title": "Product Development",
+    "phases": [
+      {
+        "title": "Phase 1",
+        "items": [
+          "Basic search functionality",
+          "Integration with main data sources",
+          "Notification system"
+        ]
+      },
+      {
+        "title": "Phase 2",
+        "items": [
+          "Advanced analytics",
+          "Mobile application",
+          "API for integrations"
+        ]
+      },
+      {
+        "title": "Phase 3",
+        "items": [
+          "Artificial Intelligence",
+          "Social features",
+          "Geographic expansion"
+        ]
+      }
+    ]
+  },
+  "advantages": {
+    "title": "Advantages",
+    "items": [
+      "Time savings on competition search",
+      "Up-to-date information from verified sources",
+      "User-friendly planning interface",
+      "Integration with popular services"
     ]
   },
   "tech": {
-    "title": "Technologies",
+    "title": "Technology Stack",
     "frontend": {
       "title": "Frontend",
       "items": [
-        "React & Next.js",
-        "TypeScript",
-        "Chakra UI"
+        "React",
+        "Next.js",
+        "Chakra UI",
+        "TypeScript"
       ]
     },
     "backend": {
       "title": "Backend",
       "items": [
-        "Flask",
-        "PostgreSQL"
+        "Node.js",
+        "PostgreSQL",
+        "Redis",
+        "GraphQL"
       ]
     },
     "integrations": {
       "title": "Integrations",
       "items": [
         "REST API",
-        "gRPC",
-        "OAuth 2.0"
+        "WebSocket",
+        "OAuth 2.0",
+        "Webhooks"
       ]
     }
   },
   "cta": {
     "title": "Ready to Start?",
-    "description": "Join thousands of organizers already using our platform",
+    "description": "Join our platform today",
     "button": "Try for Free"
   }
 }

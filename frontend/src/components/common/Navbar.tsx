@@ -14,6 +14,7 @@ import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { memo, useCallback } from 'react';
+import { TelegramAuthButton } from './TelegramAuthButton';
 
 interface NavbarProps {
   title?: string;
@@ -82,6 +83,8 @@ export const Navbar: React.FC<NavbarProps> = memo(({
                 {t('language.ru')}
               </Button>
             </ButtonGroup>
+
+            <TelegramAuthButton />
 
             <IconButton
               size="sm"

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useMemo } from 'react';
-import { Box, Button, HStack, Text } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import Form from '@rjsf/chakra-ui';
 import { RJSFSchema, UiSchema } from '@rjsf/utils';
@@ -128,20 +128,6 @@ export const EventsFilters: React.FC<EventsFiltersProps> = ({
 
   return (
     <Box>
-      <HStack justify="space-between" align="center" mb={4}>
-        <Text fontSize="md" fontWeight="medium">
-          {t('filter.title')}
-        </Text>
-        <Button
-          size="sm"
-          variant="ghost"
-          colorScheme="blue"
-          onClick={handleReset}
-        >
-          {t('filter.reset')}
-        </Button>
-      </HStack>
-
       <Form
         schema={schema as RJSFSchema}
         uiSchema={{

@@ -9,8 +9,16 @@ import {
   SimpleGrid,
   Icon,
   useColorMode,
+  Avatar,
+  HStack,
+  Link as ChakraLink,
+  Image,
+  List,
+  ListItem,
+  ListIcon,
 } from '@chakra-ui/react';
-import { CalendarIcon, SearchIcon, BellIcon } from '@chakra-ui/icons';
+import { CalendarIcon, SearchIcon, BellIcon, CheckCircleIcon } from '@chakra-ui/icons';
+import { FaTelegram, FaGithub, FaGlobe, FaMapMarkedAlt, FaCalendarAlt } from 'react-icons/fa';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import type { GetStaticProps } from 'next';
@@ -36,6 +44,49 @@ const Feature = ({ title, text, icon }: { title: string; text: string; icon: any
   );
 };
 
+const TeamMember = ({ 
+  nameRu,
+  nameEn,
+  role, 
+  telegram, 
+  github 
+}: { 
+  nameRu: string;
+  nameEn: string;
+  role: string; 
+  telegram: string;
+  github: string;
+}) => {
+  const { colorMode } = useColorMode();
+  const { i18n } = useTranslation();
+  const name = i18n.language === 'ru' ? nameRu : nameEn;
+  
+  return (
+    <VStack
+      p={6}
+      bg={colorMode === 'dark' ? 'gray.700' : 'white'}
+      borderRadius="lg"
+      shadow="md"
+      spacing={4}
+      align="center"
+    >
+      <Avatar size="xl" name={name} />
+      <VStack spacing={2}>
+        <Heading size="md">{name}</Heading>
+        <Text color="gray.500">{role}</Text>
+        <HStack spacing={4}>
+          <ChakraLink href={`https://t.me/${telegram.replace('@', '')}`} isExternal>
+            <Icon as={FaTelegram} w={6} h={6} color="blue.500" />
+          </ChakraLink>
+          <ChakraLink href={`https://github.com/${github.replace('@', '')}`} isExternal>
+            <Icon as={FaGithub} w={6} h={6} />
+          </ChakraLink>
+        </HStack>
+      </VStack>
+    </VStack>
+  );
+};
+
 const sections = ['frontend', 'backend', 'integrations'] as const;
 type TechSection = typeof sections[number];
 
@@ -43,10 +94,17 @@ export default function Landing() {
   const { t } = useTranslation(['sections/landing']);
   const { colorMode } = useColorMode();
 
-  const getTechItems = (section: TechSection): string[] => 
-    (t(`tech.${section}.items`, { returnObjects: true }) as string[]) || [];
+  const getTechItems = (section: TechSection): string[] => {
+    const items = t(`tech.${section}.items`, { returnObjects: true });
+    return Array.isArray(items) ? items : [];
+  };
 
-  const advantageItems: string[] = (t('advantages.items', { returnObjects: true }) as string[]) || [];
+  const getTranslatedArray = (key: string): string[] => {
+    const items = t(key, { returnObjects: true });
+    return Array.isArray(items) ? items : [];
+  };
+
+  const advantageItems: string[] = getTranslatedArray('advantages.items');
 
   return (
     <Box>
@@ -139,6 +197,175 @@ export default function Landing() {
                     {item}
                   </Text>
                 </Box>
+              ))}
+            </SimpleGrid>
+          </VStack>
+        </Container>
+      </Box>
+
+      {/* Подборка соревнований */}
+      <Box py={20} bg={colorMode === 'dark' ? 'gray.700' : 'gray.50'}>
+        <Container maxW="container.xl">
+          <VStack spacing={12}>
+            <Heading textAlign="center">{t('competitions.title')}</Heading>
+            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8} width="100%">
+              <Feature
+                icon={FaGlobe}
+                title={t('competitions.features.countries.title')}
+                text={t('competitions.features.countries.description')}
+              />
+              <Feature
+                icon={FaMapMarkedAlt}
+                title={t('competitions.features.disciplines.title')}
+                text={t('competitions.features.disciplines.description')}
+              />
+              <Feature
+                icon={FaCalendarAlt}
+                title={t('competitions.features.dates.title')}
+                text={t('competitions.features.dates.description')}
+              />
+            </SimpleGrid>
+          </VStack>
+        </Container>
+      </Box>
+
+      {/* Команда */}
+      <Box py={20}>
+        <Container maxW="container.xl">
+          <VStack spacing={12}>
+            <Heading textAlign="center">{t('team.title')}</Heading>
+            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8} width="100%">
+              <TeamMember
+                nameRu="Болат Идрисов"
+                nameEn="Bolat Idrisov"
+                role={t('team.roles.teamLead')}
+                telegram="@mthgradr"
+                github="@Groesie"
+              />
+              <TeamMember
+                nameRu="Марина Идрисова"
+                nameEn="Marina Idrisova"
+                role={t('team.roles.ml')}
+                telegram="@m_idrsv"
+                github="@Marina394"
+              />
+              <TeamMember
+                nameRu="Соловьёв Евгений"
+                nameEn="Eugen Soloviov"
+                role={t('team.roles.fullstack')}
+                telegram="@suenot"
+                github="@suenot"
+              />
+            </SimpleGrid>
+          </VStack>
+        </Container>
+      </Box>
+
+      {/* Архитектура решения */}
+      <Box py={20} bg={colorMode === 'dark' ? 'gray.700' : 'gray.50'}>
+        <Container maxW="container.xl">
+          <VStack spacing={8}>
+            <Heading textAlign="center">{t('architecture.title')}</Heading>
+            <Text fontSize="lg" textAlign="center" maxW="3xl">
+              {t('architecture.description')}
+            </Text>
+            <Box w="100%" p={4}>
+              <Image
+                src="/architecture.png"
+                alt="Architecture diagram"
+                fallbackSrc="https://via.placeholder.com/800x400?text=Architecture+Diagram"
+              />
+            </Box>
+          </VStack>
+        </Container>
+      </Box>
+
+      {/* Скринкаст */}
+      <Box py={20}>
+        <Container maxW="container.xl">
+          <VStack spacing={8}>
+            <Heading textAlign="center">{t('screencast.title')}</Heading>
+            <Box w="100%" maxW="4xl" h={{ base: "300px", md: "500px" }}>
+              <iframe
+                width="100%"
+                height="100%"
+                src="about:blank" // Placeholder for the actual video URL
+                title="Product Demo"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </Box>
+          </VStack>
+        </Container>
+      </Box>
+
+      {/* Киллерфичи */}
+      <Box py={20} bg={colorMode === 'dark' ? 'gray.700' : 'gray.50'}>
+        <Container maxW="container.xl">
+          <VStack spacing={8}>
+            <Heading textAlign="center">{t('features.title')}</Heading>
+            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={8} width="100%">
+              <List spacing={4}>
+                {getTranslatedArray('features.items').map((feature, index) => (
+                  <ListItem key={index} display="flex" alignItems="center">
+                    <ListIcon as={CheckCircleIcon} color="green.500" />
+                    <Text>{feature}</Text>
+                  </ListItem>
+                ))}
+              </List>
+            </SimpleGrid>
+          </VStack>
+        </Container>
+      </Box>
+
+      {/* Сценарии использования */}
+      <Box py={20}>
+        <Container maxW="container.xl">
+          <VStack spacing={8}>
+            <Heading textAlign="center">{t('useCases.title')}</Heading>
+            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={8} width="100%">
+              {getTranslatedArray('useCases.items').map((useCase, index) => (
+                <Box
+                  key={index}
+                  p={6}
+                  bg={colorMode === 'dark' ? 'gray.700' : 'white'}
+                  borderRadius="lg"
+                  shadow="md"
+                >
+                  <Text>{useCase}</Text>
+                </Box>
+              ))}
+            </SimpleGrid>
+          </VStack>
+        </Container>
+      </Box>
+
+      {/* Развитие продукта */}
+      <Box py={20} bg={colorMode === 'dark' ? 'gray.700' : 'gray.50'}>
+        <Container maxW="container.xl">
+          <VStack spacing={8}>
+            <Heading textAlign="center">{t('roadmap.title')}</Heading>
+            <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8} width="100%">
+              {getTranslatedArray('roadmap.phases').map((phase: any, index) => (
+                <VStack
+                  key={index}
+                  p={6}
+                  bg={colorMode === 'dark' ? 'gray.800' : 'white'}
+                  borderRadius="lg"
+                  shadow="md"
+                  spacing={4}
+                >
+                  <Heading size="md">{phase.title}</Heading>
+                  <List spacing={2}>
+                    {(phase.items || []).map((item: string, itemIndex: number) => (
+                      <ListItem key={itemIndex} display="flex" alignItems="center">
+                        <ListIcon as={CheckCircleIcon} color="green.500" />
+                        <Text>{item}</Text>
+                      </ListItem>
+                    ))}
+                  </List>
+                </VStack>
               ))}
             </SimpleGrid>
           </VStack>

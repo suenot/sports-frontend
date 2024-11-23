@@ -5,6 +5,8 @@ import { useTranslation } from 'next-i18next';
 import { AppDrawer } from '../common/AppDrawer';
 import { EventsFilters } from './EventsFilters';
 import { Box } from '@chakra-ui/react';
+import { TelegramSubscribeButton } from './TelegramSubscribeButton';
+import { useQueryStore } from '@deep-foundation/store/query';
 
 interface FiltersDrawerProps {
   isOpen: boolean;
@@ -26,6 +28,7 @@ export const FiltersDrawer: React.FC<FiltersDrawerProps> = ({
   ageGroups,
 }) => {
   const { t } = useTranslation(['sections/events']);
+  const [filters] = useQueryStore('filters');
 
   return (
     <AppDrawer
@@ -39,6 +42,7 @@ export const FiltersDrawer: React.FC<FiltersDrawerProps> = ({
         overflowY="auto"
         px={2}
       >
+        <TelegramSubscribeButton filters={filters} />
         <EventsFilters
           sportTypes={sportTypes}
           disciplines={disciplines}

@@ -34,7 +34,10 @@
     "all": "All",
     "genderMale": "Male",
     "genderFemale": "Female",
-    "genderMixed": "Mixed"
+    "genderMixed": "Mixed",
+    "subscribe": "Subscribe to Filters",
+    "subscribeAlert": "Get notified about new events matching your filters",
+    "subscribeTelegram": "Subscribe in Telegram"
   },
   "status": {
     "published": "Published",

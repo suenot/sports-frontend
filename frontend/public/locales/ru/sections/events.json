@@ -43,7 +43,10 @@
     "genderMixed": "Смешанный",
     "eventTypeRegional": "Региональное",
     "eventTypeNational": "Национальное",
-    "eventTypeInternational": "Международное"
+    "eventTypeInternational": "Международное",
+    "subscribe": "Подписаться на фильтры",
+    "subscribeAlert": "Получайте уведомления о новых мероприятиях по вашим фильтрам",
+    "subscribeTelegram": "Подписаться в Telegram"
   },
   "status": {
     "published": "Опубликовано",
