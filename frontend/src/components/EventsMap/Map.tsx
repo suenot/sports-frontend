@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Event } from '../EventsList/types';
+import { Event, Stage } from '../EventsList/types';
 import L from 'leaflet';
 import { Box } from '@chakra-ui/react';
 
@@ -27,6 +27,22 @@ interface MapProps {
   center?: [number, number];
   zoom?: number;
 }
+
+// Create custom icons for events and stages
+const createIcon = (color: string) => new L.Icon({
+  iconUrl: '/images/marker-icon.png',
+  iconRetinaUrl: '/images/marker-icon-2x.png',
+  shadowUrl: '/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+  className: `marker-${color}` // You can add CSS to colorize markers
+});
+
+const eventIcon = createIcon('blue');
+const stageIcon = createIcon('red');
+const checkpointIcon = createIcon('green');
 
 export const Map: React.FC<MapProps> = ({ 
   events, 
@@ -92,25 +108,55 @@ export const Map: React.FC<MapProps> = ({
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {events.map((event) => (
-          event.latitude && event.longitude ? (
-            <Marker
-              key={event.id}
-              position={[event.latitude, event.longitude]}
-              eventHandlers={{
-                click: () => onEventClick?.(event.id),
-              }}
-            >
-              <Popup>
-                <div>
-                  <h3>{event.title}</h3>
-                  <p>{event.description}</p>
-                  <p>{new Date(event.startDate).toLocaleDateString()}</p>
-                </div>
-              </Popup>
-            </Marker>
-          ) : null
-        ))}
+        {events.map((event) => {
+          // Get all stages with coordinates
+          const stages = event.stages?.filter(stage => stage.location?.coordinates) || [];
+          
+          return (
+            <React.Fragment key={event.id}>
+              {/* Event marker */}
+              {event.location?.coordinates && (
+                <Marker
+                  position={[event.location.coordinates.lat, event.location.coordinates.lng]}
+                  icon={eventIcon}
+                  eventHandlers={{
+                    click: () => onEventClick?.(event.id),
+                  }}
+                />
+              )}
+
+              {/* Stage markers and routes */}
+              {stages.map((stage) => {
+                if (!stage.location?.coordinates) return null;
+
+                return (
+                  <React.Fragment key={stage.id}>
+                    {/* Main stage marker */}
+                    <Marker
+                      position={[stage.location.coordinates.lat, stage.location.coordinates.lng]}
+                      icon={stageIcon}
+                      eventHandlers={{
+                        click: () => onEventClick?.(event.id),
+                      }}
+                    />
+
+                    {/* Route checkpoints */}
+                    {stage.location.route?.map((checkpoint, index) => (
+                      <Marker
+                        key={`${stage.id}-checkpoint-${index}`}
+                        position={[checkpoint.lat, checkpoint.lng]}
+                        icon={checkpointIcon}
+                        eventHandlers={{
+                          click: () => onEventClick?.(event.id),
+                        }}
+                      />
+                    ))}
+                  </React.Fragment>
+                );
+              })}
+            </React.Fragment>
+          );
+        })}
       </MapContainer>
     </Box>
   );

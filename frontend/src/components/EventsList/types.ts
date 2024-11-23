@@ -1,5 +1,12 @@
 export type ViewType = 'list' | 'grid' | 'calendar' | 'map';
 
+export interface Coordinate {
+  lat: number;
+  lng: number;
+  title?: string;
+  description?: string;
+}
+
 export interface Stage {
   id: string;
   title: string;
@@ -13,10 +20,8 @@ export interface Stage {
     city: string;
     venue?: string;
     address?: string;
-    coordinates?: {
-      lat: number;
-      lng: number;
-    };
+    coordinates?: Coordinate;
+    route?: Coordinate[];
   };
   status: 'draft' | 'published' | 'archived';
   maxParticipants?: number;

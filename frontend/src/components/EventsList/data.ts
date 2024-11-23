@@ -14,6 +14,13 @@ const disciplines = ['Профессионалы', 'Любители', 'Юнио
 const cities = ['Москва', 'Санкт-Петербург', 'Казань', 'Сочи', 'Екатеринбург'];
 const venues = ['Стадион', 'Спортивный комплекс', 'Арена', 'Дворец спорта', 'Центр'];
 
+type Coordinate = {
+  lat: number;
+  lng: number;
+  title?: string;
+  description?: string;
+};
+
 const generatePlaceholderImage = (width: number, height: number, text: string) => {
   return `https://via.placeholder.com/${width}x${height}?text=${encodeURIComponent(text)}`;
 };
@@ -23,6 +30,15 @@ const generateStage = (index: number, eventStartDate: Date): Stage => {
   startDate.setDate(startDate.getDate() + index * 7); // Каждый этап начинается через неделю
   const endDate = new Date(startDate);
   endDate.setDate(endDate.getDate() + 3); // Этап длится 3 дня
+  
+  // Generate 2-5 coordinates for each stage
+  const numCoordinates = faker.number.int({ min: 2, max: 5 });
+  const coordinates: Coordinate[] = Array.from({ length: numCoordinates }, (_, i) => ({
+    lat: Number(faker.location.latitude()),
+    lng: Number(faker.location.longitude()),
+    title: `Точка ${i + 1}`,
+    description: faker.lorem.sentence()
+  }));
   
   return {
     id: `stage-${index + 1}`,
@@ -37,10 +53,8 @@ const generateStage = (index: number, eventStartDate: Date): Stage => {
       city: cities[index % cities.length],
       venue: `${venues[index % venues.length]} "${faker.company.name()}"`,
       address: faker.location.streetAddress(),
-      coordinates: {
-        lat: Number(faker.location.latitude()),
-        lng: Number(faker.location.longitude())
-      }
+      coordinates: coordinates[0], // Main location
+      route: coordinates // All coordinates including checkpoints
     },
     status: stageStatuses[index % stageStatuses.length],
     maxParticipants: 50 + (index * 10),
