@@ -196,7 +196,7 @@ export const EventsListUI: React.FC<EventsListUIProps> = ({
                 )}
               </HStack>
             </Box>
-            {role === 'admin' && (
+            {role === 'manager' && (
               <HStack>
                 <Tooltip label={t('edit')}>
                   <IconButton
