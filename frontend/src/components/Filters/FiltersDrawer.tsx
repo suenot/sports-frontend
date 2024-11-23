@@ -12,6 +12,7 @@ interface FiltersDrawerProps {
   sportTypes: string[];
   disciplines: string[];
   cities: string[];
+  countries: string[];
   ageGroups: string[];
 }
 
@@ -21,6 +22,7 @@ export const FiltersDrawer: React.FC<FiltersDrawerProps> = ({
   sportTypes,
   disciplines,
   cities,
+  countries,
   ageGroups,
 }) => {
   const { t } = useTranslation(['sections/events']);
@@ -41,6 +43,7 @@ export const FiltersDrawer: React.FC<FiltersDrawerProps> = ({
           sportTypes={sportTypes}
           disciplines={disciplines}
           cities={cities}
+          countries={countries}
           ageGroups={ageGroups}
         />
       </Box>

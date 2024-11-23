@@ -126,7 +126,7 @@ export const EventsListUI: React.FC<EventsListUIProps> = ({
                   </Text>
                   <HStack spacing={2} mt={1}>
                     <Badge colorScheme={getStatusColor(event.status)}>
-                      {t(event.status)}
+                      {t(`status.${event.status}`)}
                     </Badge>
                     {(event.stages?.length ?? 0) > 0 && (
                       <Badge colorScheme="purple">
@@ -134,62 +134,62 @@ export const EventsListUI: React.FC<EventsListUIProps> = ({
                       </Badge>
                     )}
                   </HStack>
-                </Box>
-              </HStack>
-              {event.description && (
-                <Text color="gray.500" mt={2} noOfLines={2}>
-                  {event.description}
-                </Text>
-              )}
-              <HStack mt={2} spacing={4} color="gray.600">
-                {event.startDate && (
-                  <HStack fontSize="sm">
-                    <CalendarIcon />
-                    <Text>{new Date(event.startDate).toLocaleDateString()}</Text>
-                    {event.endDate && (
-                      <>
-                        <Text>-</Text>
-                        <Text>{new Date(event.endDate).toLocaleDateString()}</Text>
-                      </>
+                  {event.description && (
+                    <Text color="gray.500" mt={2} noOfLines={2}>
+                      {event.description}
+                    </Text>
+                  )}
+                  <HStack mt={2} spacing={4} color="gray.600">
+                    {event.startDate && (
+                      <HStack fontSize="sm">
+                        <CalendarIcon />
+                        <Text>{new Date(event.startDate).toLocaleDateString()}</Text>
+                        {event.endDate && (
+                          <>
+                            <Text>-</Text>
+                            <Text>{new Date(event.endDate).toLocaleDateString()}</Text>
+                          </>
+                        )}
+                      </HStack>
+                    )}
+                    {event.location?.city && (
+                      <HStack fontSize="sm">
+                        <Box as={MdLocationOn} /> 
+                        <Text>{event.location.city}</Text>
+                      </HStack>
                     )}
                   </HStack>
-                )}
-                {event.location?.city && (
-                  <HStack fontSize="sm">
-                    <Box as={MdLocationOn} /> 
-                    <Text>{event.location.city}</Text>
-                  </HStack>
-                )}
+                </Box>
               </HStack>
+              {role === 'manager' && (
+                <HStack>
+                  <Tooltip label={t('edit')}>
+                    <IconButton
+                      icon={<EditIcon />}
+                      aria-label={t('edit')}
+                      size="sm"
+                      variant="ghost"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onEventEdit?.(event);
+                      }}
+                    />
+                  </Tooltip>
+                  <Tooltip label={t('delete')}>
+                    <IconButton
+                      icon={<DeleteIcon />}
+                      aria-label={t('delete')}
+                      size="sm"
+                      variant="ghost"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onEventDelete?.(event.id);
+                      }}
+                    />
+                  </Tooltip>
+                </HStack>
+              )}
             </Box>
-            {role === 'manager' && (
-              <HStack>
-                <Tooltip label={t('edit')}>
-                  <IconButton
-                    icon={<EditIcon />}
-                    aria-label={t('edit')}
-                    size="sm"
-                    variant="ghost"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onEventEdit?.(event);
-                    }}
-                  />
-                </Tooltip>
-                <Tooltip label={t('delete')}>
-                  <IconButton
-                    icon={<DeleteIcon />}
-                    aria-label={t('delete')}
-                    size="sm"
-                    variant="ghost"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onEventDelete?.(event.id);
-                    }}
-                  />
-                </Tooltip>
-              </HStack>
-            )}
           </Flex>
         </Box>
       ))}
@@ -230,7 +230,7 @@ export const EventsListUI: React.FC<EventsListUIProps> = ({
             </Text>
             <HStack spacing={2} mt={1}>
               <Badge colorScheme={getStatusColor(event.status)}>
-                {t(event.status)}
+                {t(`status.${event.status}`)}
               </Badge>
               {(event.stages?.length ?? 0) > 0 && (
                 <Badge colorScheme="purple">

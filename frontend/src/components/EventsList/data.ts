@@ -9,9 +9,10 @@ const stageStatuses: StageStatus[] = ['draft', 'published', 'archived'];
 const eventStatuses: EventStatus[] = ['draft', 'published', 'cancelled', 'completed'];
 const eventTypes = ['regional', 'national', 'international'];
 const genderTypes = ['male', 'female', 'mixed'];
-const sportTypes = ['Футбол', 'Баскетбол', 'Волейбол', 'Теннис', 'Хоккей'];
-const disciplines = ['Профессионалы', 'Любители', 'Юниоры', 'Ветераны'];
-const cities = ['Москва', 'Санкт-Петербург', 'Казань', 'Сочи', 'Екатеринбург'];
+export const sportTypes = ['Футбол', 'Баскетбол', 'Волейбол', 'Теннис', 'Хоккей'];
+export const disciplines = ['Профессионалы', 'Любители', 'Юниоры', 'Ветераны'];
+export const cities = ['Москва', 'Санкт-Петербург', 'Казань', 'Сочи', 'Екатеринбург'];
+export const countries = ['Россия', 'Беларусь', 'Казахстан', 'Армения', 'Узбекистан'];
 const venues = ['Стадион', 'Спортивный комплекс', 'Арена', 'Дворец спорта', 'Центр'];
 
 type Coordinate = {

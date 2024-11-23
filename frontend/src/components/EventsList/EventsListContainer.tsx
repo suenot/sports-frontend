@@ -22,6 +22,7 @@ interface EventsListContainerProps {
   sportTypes: string[];
   disciplines: string[];
   cities: string[];
+  countries: string[];
   ageGroups: string[];
 }
 
@@ -34,6 +35,7 @@ export const EventsListContainer: React.FC<EventsListContainerProps> = ({
   sportTypes,
   disciplines,
   cities,
+  countries,
   ageGroups,
 }) => {
   const router = useRouter();
@@ -156,6 +158,7 @@ export const EventsListContainer: React.FC<EventsListContainerProps> = ({
         sportTypes={sportTypes}
         disciplines={disciplines}
         cities={cities}
+        countries={countries}
         ageGroups={ageGroups}
       />
 

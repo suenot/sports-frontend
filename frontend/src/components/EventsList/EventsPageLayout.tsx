@@ -2,7 +2,7 @@
 
 import { Container, Box, VStack } from '@chakra-ui/react';
 import { EventsListContainer } from './EventsListContainer';
-import { mockEvents } from './data';
+import { mockEvents, sportTypes, disciplines, cities, countries } from './data';
 import { Navbar } from '../common/Navbar';
 import { ReactNode } from 'react';
 
@@ -36,9 +36,10 @@ export const EventsPageLayout: React.FC<EventsPageLayoutProps> = ({
               events={mockEvents}
               isLoading={false}
               role={role}
-              sportTypes={['football', 'basketball', 'volleyball']}
-              disciplines={['amateur', 'professional']}
-              cities={['Moscow', 'Saint Petersburg', 'Kazan']}
+              sportTypes={sportTypes}
+              disciplines={disciplines}
+              cities={cities}
+              countries={countries}
               ageGroups={['children', 'adult', 'senior']}
               onEventEdit={(event) => console.log('Edit event:', event)}
               onEventDelete={(eventId) => console.log('Delete event:', eventId)}

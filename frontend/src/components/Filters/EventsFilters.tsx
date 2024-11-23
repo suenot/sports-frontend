@@ -12,8 +12,10 @@ import { useQueryStore } from '@deep-foundation/store/query';
 
 export interface FiltersState {
   sportType: string;
-  discipline: string;
-  city: string;
+  period: string;
+  disciplines: string[];
+  countries: string[];
+  cities: string[];
   participantsRange: [number, number];
   gender: string;
   ageGroup: string;
@@ -27,8 +29,10 @@ export interface FiltersState {
 
 const defaultFilters: FiltersState = {
   sportType: '',
-  discipline: '',
-  city: '',
+  period: '',
+  disciplines: [],
+  countries: [],
+  cities: [],
   participantsRange: [0, 1000],
   gender: '',
   ageGroup: '',
@@ -44,6 +48,7 @@ interface EventsFiltersProps {
   sportTypes: string[];
   disciplines: string[];
   cities: string[];
+  countries: string[];
   ageGroups: string[];
 }
 
@@ -51,6 +56,7 @@ export const EventsFilters: React.FC<EventsFiltersProps> = ({
   sportTypes,
   disciplines,
   cities,
+  countries,
   ageGroups,
 }) => {
   const { t } = useTranslation(['sections/events']);
@@ -58,8 +64,8 @@ export const EventsFilters: React.FC<EventsFiltersProps> = ({
 
   // Получаем обновленную схему с актуальными данными для селектов
   const schema = useMemo(() => 
-    getUpdatedSchema(t, sportTypes, disciplines, cities, ageGroups),
-    [t, sportTypes, disciplines, cities, ageGroups]
+    getUpdatedSchema(t, sportTypes, disciplines, cities, countries, ageGroups),
+    [t, sportTypes, disciplines, cities, countries, ageGroups]
   );
 
   // Кастомные виджеты для формы
@@ -79,7 +85,40 @@ export const EventsFilters: React.FC<EventsFiltersProps> = ({
 
   // Обработчик изменений формы
   const handleChange = (e: any) => {
-    setFilters(e.formData);
+    const formData = e.formData;
+    
+    // Handle period changes
+    if (formData.period !== filters.period) {
+      const now = new Date();
+      let endDate = new Date();
+      
+      switch (formData.period) {
+        case '1month':
+          endDate.setMonth(now.getMonth() + 1);
+          break;
+        case '3months':
+          endDate.setMonth(now.getMonth() + 3);
+          break;
+        case '6months':
+          endDate.setMonth(now.getMonth() + 6);
+          break;
+        case 'custom':
+          // Keep existing date range for custom period
+          break;
+        default:
+          // Reset date range for 'all' option
+          formData.dateRange = defaultFilters.dateRange;
+      }
+
+      if (formData.period && formData.period !== 'custom') {
+        formData.dateRange = {
+          start: now.toISOString().split('T')[0],
+          end: endDate.toISOString().split('T')[0],
+        };
+      }
+    }
+
+    setFilters(formData);
   };
 
   // Обработчик сброса фильтров
