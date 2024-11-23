@@ -5,6 +5,7 @@ import { Event } from '../EventsList/types';
 
 interface GanttChartProps {
   events: Event[];
+  onEventClick?: (eventId: string) => void;
 }
 
 interface PositionedEvent {
@@ -19,7 +20,7 @@ interface MonthGroup {
   daysCount: number;
 }
 
-export const GanttChart: React.FC<GanttChartProps> = ({ events }) => {
+export const GanttChart: React.FC<GanttChartProps> = ({ events, onEventClick }) => {
   const { t } = useTranslation(['sections/events']);
   
   const sortedEvents = useMemo(() => {
@@ -259,10 +260,10 @@ export const GanttChart: React.FC<GanttChartProps> = ({ events }) => {
           <Box
             key={event.id}
             position="absolute"
-            top={`${row * 32 + 5}px`}
+            top={`${row * 80 + 5}px`}
             left={0}
             width="100%"
-            height="55px"
+            height="70px"
           >
             {(event.stages || []).map((stage) => {
               const startDate = new Date(stage.dates.start);
@@ -291,6 +292,7 @@ export const GanttChart: React.FC<GanttChartProps> = ({ events }) => {
                     transform: 'translateY(-2px)',
                     boxShadow: 'md'
                   }}
+                  onClick={() => onEventClick?.(event.id)}
                 >
                   <Box p={2}>
                     <Text

@@ -278,7 +278,7 @@ export const EventsListUI: React.FC<EventsListUIProps> = ({
       bottom="0"
       mt="60px"
     >
-      <GanttChart events={events} />
+      <GanttChart events={events} onEventClick={onEventClick} />
     </Box>
   );
 
@@ -341,7 +341,7 @@ export const EventsListUI: React.FC<EventsListUIProps> = ({
       case 'calendar':
         return (
           <Box h="calc(100vh - 120px)">
-            <GanttChart events={events} />
+            <GanttChart events={events} onEventClick={onEventClick} />
           </Box>
         );
       case 'map':
