@@ -42,7 +42,7 @@ export default function EventViewPage() {
   return (
     <EventsPageLayout title={title}>
       <VStack spacing={6} align="stretch">
-        {event.media.thumbnails[0] && (
+        {event.media?.thumbnails?.[0] && (
           <Image
             src={event.media.thumbnails[0]}
             alt={event.title}
@@ -72,9 +72,9 @@ export default function EventViewPage() {
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
           <Box>
             <Heading size="md" mb={3}>{t('events.location')}</Heading>
-            <Text fontSize="lg">{event.location.city}</Text>
-            <Text color="gray.600">{event.location.venue}</Text>
-            <Text color="gray.600">{event.location.address}</Text>
+            <Text fontSize="lg">{event.location?.city}</Text>
+            <Text color="gray.600">{event.location?.venue}</Text>
+            <Text color="gray.600">{event.location?.address}</Text>
           </Box>
           <Box>
             <Heading size="md" mb={3}>{t('events.sportType')}</Heading>
@@ -86,7 +86,7 @@ export default function EventViewPage() {
         <Box>
           <Heading size="md" mb={4}>{t('events.stages')}</Heading>
           <VStack spacing={4} align="stretch">
-            {event.stages.map((stage) => (
+            {(event.stages || []).map((stage) => (
               <Box
                 key={stage.id}
                 p={4}

@@ -14,12 +14,54 @@ import {
 } from '@chakra-ui/react';
 
 interface EventFormProps {
-  event?: Event | null;
+  event?: Event | null | undefined;
   onSubmit: (event: Partial<Event>) => void;
   isEdit?: boolean;
+  sportTypes: string[];
+  disciplines: string[];
+  cities: string[];
+  ageGroups: string[];
 }
 
-const emptyEvent: Partial<Event> = {
+interface EventFormState {
+  title: string;
+  shortDescription: string;
+  description: string;
+  sportType: string;
+  discipline: string;
+  eventType: 'regional' | 'national' | 'international';
+  ageGroup: string;
+  gender: 'male' | 'female' | 'mixed';
+  participantsCount: number;
+  status: 'draft' | 'published' | 'cancelled' | 'completed';
+  location: {
+    city: string;
+    venue: string;
+    address: string;
+    coordinates: {
+      lat: number;
+      lng: number;
+    };
+  };
+  media: {
+    banners: any[];
+    thumbnails: any[];
+    gallery: any[];
+    videos: any[];
+  };
+  links: {
+    socialMedia: any;
+  };
+  stages: any[];
+  tags: any[];
+  seo: {
+    title: string;
+    description: string;
+    keywords: string[];
+  };
+}
+
+const emptyEvent: EventFormState = {
   title: '',
   shortDescription: '',
   description: '',
@@ -50,20 +92,59 @@ const emptyEvent: Partial<Event> = {
   },
   stages: [],
   tags: [],
-  seo: {},
+  seo: {
+    title: '',
+    description: '',
+    keywords: []
+  },
 };
 
 export const EventForm: React.FC<EventFormProps> = ({
   event,
   onSubmit,
   isEdit = false,
+  sportTypes,
+  disciplines,
+  cities,
+  ageGroups,
 }) => {
   const { t } = useTranslation(['sections/events']);
   const toast = useToast();
 
+  // Convert Event to EventFormState
+  const convertEventToFormState = (event: Event | null | undefined): EventFormState => {
+    if (!event) return emptyEvent;
+    return {
+      ...emptyEvent,
+      ...event,
+      location: {
+        city: event.location?.city || '',
+        venue: event.location?.venue || '',
+        address: event.location?.address || '',
+        coordinates: event.location?.coordinates || { lat: 0, lng: 0 },
+      },
+      media: {
+        banners: event.media?.banners || [],
+        thumbnails: event.media?.thumbnails || [],
+        gallery: event.media?.gallery || [],
+        videos: event.media?.videos || [],
+      },
+      links: {
+        socialMedia: event.links?.socialMedia || {},
+      },
+      stages: event.stages || [],
+      tags: event.tags || [],
+      seo: {
+        title: event.seo?.title || '',
+        description: event.seo?.description || '',
+        keywords: event.seo?.keywords || [],
+      },
+    };
+  };
+
   // Начальное состояние формы
-  const [formData, setFormData] = React.useState<Partial<Event>>(
-    event || emptyEvent
+  const [formData, setFormData] = React.useState<EventFormState>(
+    convertEventToFormState(event)
   );
 
   // Обработчик изменения полей формы
@@ -106,26 +187,6 @@ export const EventForm: React.FC<EventFormProps> = ({
       });
     }
   };
-
-  const sportTypes = [
-    'football',
-    'basketball',
-    'volleyball',
-    'tennis',
-    'hockey',
-    'swimming',
-    'athletics',
-    'gymnastics',
-    'boxing',
-    'wrestling'
-  ];
-
-  const disciplines = [
-    'professional',
-    'amateur',
-    'junior',
-    'veteran'
-  ];
 
   return (
     <Box as="form" onSubmit={handleSubmit}>
@@ -207,19 +268,25 @@ export const EventForm: React.FC<EventFormProps> = ({
 
         <FormControl isRequired>
           <FormLabel>{t('form.location.city')}</FormLabel>
-          <Input
+          <Select
             name="location.city"
-            value={formData.location?.city}
+            value={formData.location.city}
             onChange={handleChange}
             placeholder={t('form.location.cityPlaceholder')}
-          />
+          >
+            {cities.map(city => (
+              <option key={city} value={city}>
+                {city}
+              </option>
+            ))}
+          </Select>
         </FormControl>
 
         <FormControl isRequired>
           <FormLabel>{t('form.location.venue')}</FormLabel>
           <Input
             name="location.venue"
-            value={formData.location?.venue}
+            value={formData.location.venue}
             onChange={handleChange}
             placeholder={t('form.location.venuePlaceholder')}
           />
@@ -229,10 +296,39 @@ export const EventForm: React.FC<EventFormProps> = ({
           <FormLabel>{t('form.location.address')}</FormLabel>
           <Input
             name="location.address"
-            value={formData.location?.address}
+            value={formData.location.address}
             onChange={handleChange}
             placeholder={t('form.location.addressPlaceholder')}
           />
+        </FormControl>
+
+        <FormControl isRequired>
+          <FormLabel>{t('form.ageGroup')}</FormLabel>
+          <Select
+            name="ageGroup"
+            value={formData.ageGroup}
+            onChange={handleChange}
+            placeholder={t('form.ageGroupPlaceholder')}
+          >
+            {ageGroups.map(ageGroup => (
+              <option key={ageGroup} value={ageGroup}>
+                {ageGroup}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
+
+        <FormControl isRequired>
+          <FormLabel>{t('form.gender')}</FormLabel>
+          <Select
+            name="gender"
+            value={formData.gender}
+            onChange={handleChange}
+          >
+            <option value="male">{t('form.genders.male')}</option>
+            <option value="female">{t('form.genders.female')}</option>
+            <option value="mixed">{t('form.genders.mixed')}</option>
+          </Select>
         </FormControl>
 
         <Button type="submit" colorScheme="blue" size="lg" w="100%">

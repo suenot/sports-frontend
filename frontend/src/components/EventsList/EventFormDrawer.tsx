@@ -10,6 +10,10 @@ interface EventFormDrawerProps {
   event?: Event | null;
   onSubmit: (event: Partial<Event>) => void;
   isEdit?: boolean;
+  sportTypes: string[];
+  disciplines: string[];
+  cities: string[];
+  ageGroups: string[];
 }
 
 export const EventFormDrawer: React.FC<EventFormDrawerProps> = ({
@@ -18,6 +22,10 @@ export const EventFormDrawer: React.FC<EventFormDrawerProps> = ({
   event,
   onSubmit,
   isEdit = false,
+  sportTypes,
+  disciplines,
+  cities,
+  ageGroups,
 }) => {
   const { t } = useTranslation(['sections/events']);
 
@@ -37,6 +45,10 @@ export const EventFormDrawer: React.FC<EventFormDrawerProps> = ({
         event={event}
         onSubmit={handleSubmit}
         isEdit={isEdit}
+        sportTypes={sportTypes}
+        disciplines={disciplines}
+        cities={cities}
+        ageGroups={ageGroups}
       />
     </AppDrawer>
   );

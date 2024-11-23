@@ -18,6 +18,9 @@ interface EventDrawerProps {
   isOpen: boolean;
   onClose: () => void;
   event: Event | null;
+  onEdit?: (event: Event) => void;
+  onDelete?: (eventId: string) => void;
+  role?: string;
 }
 
 const getStatusColor = (status: Event['status'] | string) => {
@@ -43,6 +46,9 @@ export const EventDrawer: React.FC<EventDrawerProps> = ({
   isOpen,
   onClose,
   event,
+  onEdit,
+  onDelete,
+  role,
 }) => {
   const { t } = useTranslation(['sections/events']);
   const bgColor = useColorModeValue('white', 'gray.800');
@@ -63,7 +69,7 @@ export const EventDrawer: React.FC<EventDrawerProps> = ({
         px={2}
       >
         <VStack spacing={6} align="stretch">
-          {event.media.thumbnails[0] && (
+          {event.media?.thumbnails?.[0] && (
             <Image
               src={event.media.thumbnails[0]}
               alt={event.title}
@@ -96,8 +102,8 @@ export const EventDrawer: React.FC<EventDrawerProps> = ({
           <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
             <Box>
               <Text fontWeight="bold" mb={1}>{t('location')}</Text>
-              <Text>{event.location.city}</Text>
-              <Text fontSize="sm" color="gray.600">{event.location.venue}</Text>
+              <Text>{event.location?.city}</Text>
+              <Text fontSize="sm" color="gray.600">{event.location?.venue}</Text>
             </Box>
             <Box>
               <Text fontWeight="bold" mb={1}>{t('sportType')}</Text>
@@ -111,7 +117,7 @@ export const EventDrawer: React.FC<EventDrawerProps> = ({
           <Box>
             <Text fontWeight="bold" mb={3}>{t('stages')}:</Text>
             <VStack spacing={4} align="stretch">
-              {event.stages.map((stage) => (
+              {event.stages?.map((stage) => (
                 <Box
                   key={stage.id}
                   p={4}

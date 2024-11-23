@@ -57,8 +57,10 @@ const getStatusColor = (status: Event['status']) => {
       return 'green';
     case 'draft':
       return 'gray';
-    case 'archived':
+    case 'cancelled':
       return 'red';
+    case 'completed':
+      return 'blue';
     default:
       return 'gray';
   }
@@ -126,9 +128,9 @@ export const EventsListUI: React.FC<EventsListUIProps> = ({
                     <Badge colorScheme={getStatusColor(event.status)}>
                       {t(event.status)}
                     </Badge>
-                    {event.stages?.length > 0 && (
+                    {(event.stages?.length ?? 0) > 0 && (
                       <Badge colorScheme="purple">
-                        {event.stages.length} {t('stages')}
+                        {event.stages?.length} {t('stages')}
                       </Badge>
                     )}
                   </HStack>
@@ -140,10 +142,16 @@ export const EventsListUI: React.FC<EventsListUIProps> = ({
                 </Text>
               )}
               <HStack mt={2} spacing={4} color="gray.600">
-                {event.dates?.start && (
+                {event.startDate && (
                   <HStack fontSize="sm">
                     <CalendarIcon />
-                    <Text>{new Date(event.dates.start).toLocaleDateString()}</Text>
+                    <Text>{new Date(event.startDate).toLocaleDateString()}</Text>
+                    {event.endDate && (
+                      <>
+                        <Text>-</Text>
+                        <Text>{new Date(event.endDate).toLocaleDateString()}</Text>
+                      </>
+                    )}
                   </HStack>
                 )}
                 {event.location?.city && (
@@ -224,9 +232,9 @@ export const EventsListUI: React.FC<EventsListUIProps> = ({
               <Badge colorScheme={getStatusColor(event.status)}>
                 {t(event.status)}
               </Badge>
-              {event.stages?.length > 0 && (
+              {(event.stages?.length ?? 0) > 0 && (
                 <Badge colorScheme="purple">
-                  {event.stages.length} {t('stages')}
+                  {event.stages?.length} {t('stages')}
                 </Badge>
               )}
             </HStack>
@@ -235,6 +243,26 @@ export const EventsListUI: React.FC<EventsListUIProps> = ({
                 {event.description}
               </Text>
             )}
+            <HStack mt={2} spacing={4} color="gray.600">
+              {event.startDate && (
+                <HStack fontSize="sm">
+                  <CalendarIcon />
+                  <Text>{new Date(event.startDate).toLocaleDateString()}</Text>
+                  {event.endDate && (
+                    <>
+                      <Text>-</Text>
+                      <Text>{new Date(event.endDate).toLocaleDateString()}</Text>
+                    </>
+                  )}
+                </HStack>
+              )}
+              {event.location?.city && (
+                <HStack fontSize="sm">
+                  <Box as={MdLocationOn} /> 
+                  <Text>{event.location.city}</Text>
+                </HStack>
+              )}
+            </HStack>
           </Box>
         </Box>
       ))}

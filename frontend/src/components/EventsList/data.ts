@@ -5,7 +5,7 @@ import { Event, Stage, EventStatus, StageStatus, StageType } from './types';
 faker.seed(123);
 
 const stageTypes: StageType[] = ['registration', 'qualification', 'semifinal', 'final', 'other'];
-const stageStatuses: StageStatus[] = ['upcoming', 'ongoing', 'completed', 'cancelled'];
+const stageStatuses: StageStatus[] = ['draft', 'published', 'archived'];
 const eventStatuses: EventStatus[] = ['draft', 'published', 'cancelled', 'completed'];
 const eventTypes = ['regional', 'national', 'international'];
 const genderTypes = ['male', 'female', 'mixed'];
@@ -84,6 +84,7 @@ const generateEvent = (index: number): Event => {
     title: `${sportType} - ${faker.company.catchPhrase()}`,
     description: faker.lorem.paragraphs(2),
     shortDescription: faker.lorem.sentence(),
+    startDate: startDate.toISOString(),
     media: {
       banners: Array.from({ length: 2 }, () => generatePlaceholderImage(800, 400, sportType)),
       thumbnails: Array.from({ length: 2 }, () => generatePlaceholderImage(200, 200, sportType)),
@@ -116,10 +117,6 @@ const generateEvent = (index: number): Event => {
     gender: faker.helpers.arrayElement(genderTypes) as Event['gender'],
     participantsCount: faker.number.int({ min: 50, max: 1000 }),
     status: eventStatuses[index % eventStatuses.length],
-    price: {
-      amount: faker.number.int({ min: 1000, max: 10000 }),
-      currency: 'RUB'
-    },
     organizer: {
       id: `organizer-${index + 1}`,
       name: faker.company.name(),

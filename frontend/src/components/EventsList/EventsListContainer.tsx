@@ -45,7 +45,7 @@ export const EventsListContainer: React.FC<EventsListContainerProps> = ({
   const [isEventViewOpen, setIsEventViewOpen] = useQueryStore('events.view.open', false);
   const [isEventEditOpen, setIsEventEditOpen] = useQueryStore('events.edit.open', false);
   const [isEventAddOpen, setIsEventAddOpen] = useQueryStore('events.add.open', false);
-  const [currentEventId, setCurrentEventId] = useQueryStore('events.current', null);
+  const [currentEventId, setCurrentEventId] = useQueryStore<string | null>('events.current', null);
   const [viewType, setViewType] = useState<ViewType>('list');
 
   const {
@@ -176,7 +176,7 @@ export const EventsListContainer: React.FC<EventsListContainerProps> = ({
         event={currentEvent}
         isOpen={isEventEditOpen || isEventAddOpen}
         onClose={closeEvent}
-        onSave={handleEventSave}
+        onSubmit={handleEventSave}
         sportTypes={sportTypes}
         disciplines={disciplines}
         cities={cities}

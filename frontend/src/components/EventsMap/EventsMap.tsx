@@ -26,13 +26,14 @@ export const EventsMap: React.FC<EventsMapProps> = ({ events, onEventClick }) =>
 
   return (
     <Box h="600px" w="100%">
-      <Map
-        center={defaultCenter}
-        zoom={10}
-        style={{ height: '100%', width: '100%' }}
-        events={events}
-        onEventClick={onEventClick}
-      />
+      <Box h="100%" w="100%">
+        <Map
+          center={defaultCenter}
+          zoom={10}
+          events={events}
+          onEventClick={onEventClick}
+        />
+      </Box>
     </Box>
   );
 };

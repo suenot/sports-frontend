@@ -7,6 +7,12 @@ import { EventForm } from '../../../components/EventsList/EventForm';
 import { Event } from '../../../components/EventsList/types';
 import { EventsPageLayout } from '../../../components/EventsList/EventsPageLayout';
 
+// Import options from data file
+const sportTypes = ['Футбол', 'Баскетбол', 'Волейбол', 'Теннис', 'Хоккей'];
+const disciplines = ['Профессионалы', 'Любители', 'Юниоры', 'Ветераны'];
+const cities = ['Москва', 'Санкт-Петербург', 'Казань', 'Сочи', 'Екатеринбург'];
+const ageGroups = ['Юниоры', 'Взрослые', 'Ветераны'];
+
 export default function EventAddPage() {
   const { t } = useTranslation('common');
   const router = useRouter();
@@ -23,6 +29,10 @@ export default function EventAddPage() {
         <EventForm
           onSubmit={handleSubmit}
           isEdit={false}
+          sportTypes={sportTypes}
+          disciplines={disciplines}
+          cities={cities}
+          ageGroups={ageGroups}
         />
       </Box>
     </EventsPageLayout>

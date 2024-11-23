@@ -39,11 +39,19 @@ export const GanttChart: React.FC<GanttChartProps> = ({ events }) => {
   // Находим минимальную и максимальную даты для определения временного диапазона
   const timeRange = useMemo(() => {
     const dates = sortedEvents.flatMap(event => 
-      event.stages.map(stage => [
+      (event.stages || []).map(stage => [
         new Date(stage.dates.start),
         new Date(stage.dates.end)
       ])
     ).flat();
+
+    if (dates.length === 0) {
+      const now = new Date();
+      return {
+        start: now,
+        end: new Date(now.getTime() + 24 * 60 * 60 * 1000) // next day
+      };
+    }
 
     return {
       start: new Date(Math.min(...dates.map(d => d.getTime()))),
@@ -102,7 +110,7 @@ export const GanttChart: React.FC<GanttChartProps> = ({ events }) => {
 
     sortedEvents.forEach(event => {
       // Сортируем этапы по количеству участников
-      const sortedStages = [...event.stages].sort((a, b) => (b.maxParticipants || 0) - (a.maxParticipants || 0));
+      const sortedStages = [...(event.stages || [])].sort((a, b) => (b.maxParticipants || 0) - (a.maxParticipants || 0));
       const eventStart = Math.min(...sortedStages.map(stage => new Date(stage.dates.start).getTime()));
       const eventEnd = Math.max(...sortedStages.map(stage => new Date(stage.dates.end).getTime()));
 
@@ -256,7 +264,7 @@ export const GanttChart: React.FC<GanttChartProps> = ({ events }) => {
             width="100%"
             height="55px"
           >
-            {event.stages.map((stage) => {
+            {(event.stages || []).map((stage) => {
               const startDate = new Date(stage.dates.start);
               const endDate = new Date(stage.dates.end);
               const startIndex = dateRange.findIndex(
