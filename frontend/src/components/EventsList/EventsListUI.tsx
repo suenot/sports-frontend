@@ -114,7 +114,7 @@ export const EventsListUI: React.FC<EventsListUIProps> = ({
             onClick={() => onViewTypeChange(ViewType.CALENDAR)}
             colorScheme={viewType === ViewType.CALENDAR ? 'blue' : undefined}
           >
-            <CalendarIcon mr={2} /> {t('calendar')}
+            <CalendarIcon mr={2} /> {t('calendarView')}
           </Button>
           <Button
             onClick={() => onViewTypeChange(ViewType.MAP)}

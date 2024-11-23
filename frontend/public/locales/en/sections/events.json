@@ -174,5 +174,67 @@
       "invalidDate": "Invalid date format",
       "endDateBeforeStart": "End date must be after start date"
     }
+  },
+  "calendar": {
+    "months": {
+      "January": "January",
+      "February": "February",
+      "March": "March",
+      "April": "April",
+      "May": "May",
+      "June": "June",
+      "July": "July",
+      "August": "August",
+      "September": "September",
+      "October": "October",
+      "November": "November",
+      "December": "December"
+    },
+    "weekDays": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    },
+    "short": {
+      "year": "yr",
+      "month": "mo",
+      "day": "d",
+      "hour": "h"
+    },
+    "zoomLevel": {
+      "day": "Day",
+      "week": "Week",
+      "month": "Month",
+      "quarter": "Quarter",
+      "year": "Year"
+    },
+    "tooltips": {
+      "today": "Today",
+      "zoomIn": "Zoom In",
+      "zoomOut": "Zoom Out",
+      "moveLeft": "Move Left",
+      "moveRight": "Move Right"
+    }
+  },
+  "calendarView": "Calendar",
+  "calendar": {
+    "months": {
+      "January": "January",
+      "February": "February",
+      "March": "March",
+      "April": "April",
+      "May": "May",
+      "June": "June",
+      "July": "July",
+      "August": "August",
+      "September": "September",
+      "October": "October",
+      "November": "November",
+      "December": "December"
+    }
   }
 }

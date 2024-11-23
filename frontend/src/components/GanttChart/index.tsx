@@ -1,5 +1,6 @@
 import { Box, Text, HStack, VStack, useColorModeValue } from '@chakra-ui/react';
 import { useMemo } from 'react';
+import { useTranslation } from 'next-i18next';
 import { Event } from '../EventsList/types';
 
 interface GanttChartProps {
@@ -19,6 +20,8 @@ interface MonthGroup {
 }
 
 export const GanttChart: React.FC<GanttChartProps> = ({ events }) => {
+  const { t } = useTranslation(['sections/events']);
+  
   const sortedEvents = useMemo(() => {
     // Сортируем события по максимальному количеству участников среди всех этапов
     return events
@@ -65,7 +68,8 @@ export const GanttChart: React.FC<GanttChartProps> = ({ events }) => {
     let currentGroup: MonthGroup | null = null;
 
     dateRange.forEach((date, index) => {
-      const month = date.toLocaleString('default', { month: 'long' });
+      const monthName = date.toLocaleString('default', { month: 'long' });
+      const month = t(`calendar.months.${monthName}`);
       const year = date.getFullYear();
       const monthYear = `${month}-${year}`;
 
@@ -89,7 +93,7 @@ export const GanttChart: React.FC<GanttChartProps> = ({ events }) => {
     }
 
     return groups;
-  }, [dateRange]);
+  }, [dateRange, t]);
 
   // Распределяем события по строкам (как на itch.io)
   const positionedEvents = useMemo(() => {
@@ -174,7 +178,7 @@ export const GanttChart: React.FC<GanttChartProps> = ({ events }) => {
                 textAlign="center"
                 whiteSpace="nowrap"
               >
-                {group.month} {group.year}
+                {`${group.month} ${group.year}`}
               </Text>
             </Box>
           ))}
@@ -188,6 +192,8 @@ export const GanttChart: React.FC<GanttChartProps> = ({ events }) => {
               index >= group.startIndex && 
               index < group.startIndex + group.daysCount
             );
+            
+            const weekday = date.toLocaleString('default', { weekday: 'long' }).toLowerCase();
             
             return (
               <Box
@@ -204,7 +210,7 @@ export const GanttChart: React.FC<GanttChartProps> = ({ events }) => {
               >
                 <Text fontSize="md">{date.getDate()}</Text>
                 <Text fontSize="sm" color="gray.500">
-                  {date.toLocaleString('default', { weekday: 'short' })}
+                  {t(`calendar.weekDays.${weekday}`)}
                 </Text>
               </Box>
             );

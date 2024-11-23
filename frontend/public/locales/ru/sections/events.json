@@ -167,5 +167,51 @@
       "address": "Адрес",
       "addressPlaceholder": "Введите адрес"
     }
+  },
+  "calendarView": "Календарь",
+  "calendar": {
+    "months": {
+      "January": "Январь",
+      "February": "Февраль",
+      "March": "Март",
+      "April": "Апрель",
+      "May": "Май",
+      "June": "Июнь",
+      "July": "Июль",
+      "August": "Август",
+      "September": "Сентябрь",
+      "October": "Октябрь",
+      "November": "Ноябрь",
+      "December": "Декабрь"
+    },
+    "weekDays": {
+      "monday": "Понедельник",
+      "tuesday": "Вторник",
+      "wednesday": "Среда",
+      "thursday": "Четверг",
+      "friday": "Пятница",
+      "saturday": "Суббота",
+      "sunday": "Воскресенье"
+    },
+    "short": {
+      "year": "г",
+      "month": "мес",
+      "day": "д",
+      "hour": "ч"
+    },
+    "zoomLevel": {
+      "day": "День",
+      "week": "Неделя",
+      "month": "Месяц",
+      "quarter": "Квартал",
+      "year": "Год"
+    },
+    "tooltips": {
+      "today": "Сегодня",
+      "zoomIn": "Приблизить",
+      "zoomOut": "Отдалить",
+      "moveLeft": "Влево",
+      "moveRight": "Вправо"
+    }
   }
 }
